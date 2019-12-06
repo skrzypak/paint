@@ -14,7 +14,8 @@ namespace CApp
 	public:
 		Canvas();
 		~Canvas();
-		void generate(std::string);
+		// Polymorphism - polimorfistyczne stworzenie nowej figury geometrycznej
+		void generate(Shape*);
 		std::vector<CApp::Shape*> getShapes();
 	};
 }

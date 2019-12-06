@@ -5,15 +5,15 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(500, 500), "PK3");
 
 	CApp::Canvas canvas;
-
-	canvas.generate("Rectangle");
-	canvas.generate("Rectangle");
+	canvas.generate(new CApp::Rectangle);
 	auto obj = canvas.getShapes();
 
+	std::cout << std::endl;
 	for (const auto& el : obj)
 	{
 		el->update();
 	}
+	std::cout << std::endl;
 		
 
 	while (window.isOpen())

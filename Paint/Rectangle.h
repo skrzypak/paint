@@ -8,6 +8,7 @@ namespace CApp
 	{
 	public:
 		Rectangle();
+		Rectangle* generate();
 		virtual void update();
 		~Rectangle();
 	};

@@ -1,11 +1,14 @@
 #include "Canvas.h"
+#include <iostream>
 
 CApp::Canvas::Canvas()
 {
+	std::cout << "CApp::Canvas::Canvas()" << std::endl;
 }
 
 CApp::Canvas::~Canvas()
 {
+	std::cout << "CApp::Canvas::~Canvas()" << std::endl;
 	for (auto el : __shapes)
 	{
 		delete el;
@@ -13,17 +16,15 @@ CApp::Canvas::~Canvas()
 	}
 }
 
-void CApp::Canvas::generate(std::string s)
+void CApp::Canvas::generate(Shape* s)
 {
-	Shape* shape;
-	if (s == "Rectangle") {
-		shape = new Rectangle;
-		__shapes.push_back(shape);
-	}	
+	std::cout << "void CApp::Canvas::generate(Shape* s)" << std::endl;
+	__shapes.push_back(s);
 }
 
 std::vector<CApp::Shape*> CApp::Canvas::getShapes()
 {
+	std::cout << "std::vector<CApp::Shape*> CApp::Canvas::getShapes()" << std::endl;
 	return __shapes;
 }
 
