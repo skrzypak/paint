@@ -2,7 +2,6 @@
 #include "Shape.h"
 #include <vector>
 #include <string>
-#include "Rectangle.h"
 
 class Shape;
 

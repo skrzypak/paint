@@ -6,6 +6,7 @@ int main()
 
 	CApp::Canvas canvas;
 	canvas.generate(new CApp::Rectangle);
+	canvas.generate(new CApp::Ellipse);
 	auto obj = canvas.getShapes();
 
 	std::cout << std::endl;
