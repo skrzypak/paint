@@ -2,9 +2,19 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(250, 250), "Paint PK3");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(500, 500), "PK3");
+
+	CApp::Canvas canvas;
+
+	canvas.generate("Rectangle");
+	canvas.generate("Rectangle");
+	auto obj = canvas.getShapes();
+
+	for (const auto& el : obj)
+	{
+		el->update();
+	}
+		
 
 	while (window.isOpen())
 	{
@@ -15,11 +25,10 @@ int main()
 		}
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
+			if (event.type == sf::Event::Closed) window.close();
 		}
 		window.clear();
-		window.draw(shape);
+		for (const auto& el : obj) //window.draw(shape);
 		window.display();
 	}
 
