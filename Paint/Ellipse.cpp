@@ -2,21 +2,15 @@
 #include <iostream>
 #include <cmath>
 
-CApp::Ellipse::Ellipse(const sf::Vector2f& radius = sf::Vector2f(0, 0)): __radius(radius)
+CApp::Ellipse::Ellipse() : __radius({0.f, 0.f})
 {
-	std::cout << "CApp::Ellipse::Ellipse(const sf::Vector2f& _radius = sf::Vector2f(0, 0)): radius(_radius)" << std::endl;
-	update();
+    std::cout << "CApp::Ellipse::Ellipse()" << std::endl;
+    update();
 }
 
-CApp::Ellipse* CApp::Ellipse::generate()
+void CApp::Ellipse::updateShape()
 {
-	std::cout << "CApp::Ellipse* CApp::Ellipse::generate()" << std::endl;
-    return new CApp::Ellipse({0.f, 0.f});
-}
-
-void CApp::Ellipse::update()
-{
-	std::cout << "void CApp::Ellipse::update()" << std::endl;
+	std::cout << "void CApp::Ellipse::updateShape()" << std::endl;
 }
 
 CApp::Ellipse::~Ellipse()
@@ -24,13 +18,12 @@ CApp::Ellipse::~Ellipse()
 	std::cout << "CApp::Ellipse::~Ellipse()" << std::endl;
 }
 
-void CApp::Ellipse::setRadius(const sf::Vector2f& r)
+void CApp::Ellipse::setRadius(const sf::Vector2f& radius)
 {
     std::cout << "void CApp::Ellipse::setRadius(const sf::Vector2f& r)" << std::endl;
-    __radius = r;
+    __radius = radius;
     update();
 }
-
 
 const sf::Vector2f& CApp::Ellipse::getRadius() const
 {
@@ -46,7 +39,7 @@ size_t CApp::Ellipse::getPointCount() const
 
 sf::Vector2f CApp::Ellipse::getPoint(std::size_t index) const
 {
-    std::cout << "sf::Vector2f CApp::Ellipse::getPoint(unsigned int index) const" << std::endl;
+    std::cout << "sf::Vector2f CApp::Ellipse::getPoint(std::size_t index) const" << std::endl;
     static const float pi = 3.141592654f;
 
     float angle = index * 2 * pi / getPointCount() - pi / 2;

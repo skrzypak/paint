@@ -8,9 +8,10 @@ namespace CApp
 	{
 	public:
 		Rectangle();
-		Rectangle* generate();
-		virtual void update();
 		~Rectangle();
+		virtual void updateShape();
+		virtual size_t getPointCount() const override;
+		virtual sf::Vector2f getPoint(std::size_t) const override;
 	};
 }
 

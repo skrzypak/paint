@@ -16,7 +16,7 @@ CApp::Canvas::~Canvas()
 	}
 }
 
-void CApp::Canvas::generate(Shape* s)
+void CApp::Canvas::generateShape(Shape* s)
 {
 	std::cout << "void CApp::Canvas::generate(Shape* s)" << std::endl;
 	__shapes.push_back(s);

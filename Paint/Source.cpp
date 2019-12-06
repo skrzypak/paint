@@ -5,14 +5,19 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(500, 500), "PK3");
 
 	CApp::Canvas canvas;
-	canvas.generate(new CApp::Rectangle);
-	canvas.generate(new CApp::Ellipse);
+	canvas.generateShape(new CApp::Rectangle);
+	canvas.generateShape(new CApp::Ellipse);
+	canvas.generateShape(new CApp::Ellipse);
+	canvas.generateShape(new CApp::Ellipse);
+	canvas.generateShape(new CApp::Ellipse);
+	canvas.generateShape(new CApp::Ellipse);
+	canvas.generateShape(new CApp::Rectangle);
 	auto obj = canvas.getShapes();
 
 	std::cout << std::endl;
 	for (const auto& el : obj)
 	{
-		el->update();
+		el->updateShape();
 	}
 	std::cout << std::endl;
 		
