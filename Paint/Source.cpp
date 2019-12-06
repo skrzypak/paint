@@ -1,5 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
+#include  "Header.h"
 
 int main()
 {
@@ -13,7 +12,6 @@ int main()
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			sf::Vector2i position = sf::Mouse::getPosition();
-			std::cout << position.x << " " << position.y << std::endl;
 		}
 		while (window.pollEvent(event))
 		{
