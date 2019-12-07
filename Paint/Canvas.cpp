@@ -28,7 +28,15 @@ CApp::Shape* CApp::Canvas::getLastShape()
 	return __shapes.back();
 }
 
-std::vector<CApp::Shape*> CApp::Canvas::getShapes()
+void CApp::Canvas::refresh(sf::RenderWindow& w)
+{
+	std::cout << "void CApp::Canvas::refresh(sf::RenderWindow& w)" << std::endl;
+	w.clear(sf::Color::Black);
+	for (const auto& el : this->__getShapes()) w.draw(*(el->__shape));
+	w.display();
+}
+
+std::vector<CApp::Shape*> CApp::Canvas::__getShapes()
 {
 	std::cout << "std::vector<CApp::Shape*> CApp::Canvas::getShapes()" << std::endl;
 	return __shapes;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Shape.h"
+#include <SFML/Window.hpp>
 #include <vector>
-#include <string>
 
 class Shape;
 
@@ -10,6 +10,7 @@ namespace CApp
 	class Canvas
 	{
 		std::vector<Shape*> __shapes;
+		std::vector<Shape*> __getShapes();
 	public:
 		Canvas();
 		~Canvas();
@@ -18,7 +19,7 @@ namespace CApp
 		void generateShape(Shape*);
 
 		Shape* getLastShape();
-		std::vector<Shape*> getShapes();
+		void refresh(sf::RenderWindow&);
 	};
 }
 

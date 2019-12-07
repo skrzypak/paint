@@ -1,10 +1,8 @@
 #include  "Header.h"
 
-void refresh(sf::RenderWindow&, CApp::Canvas&);
-
 int main()
 {
-	CApp::Canvas canvas;
+	CApp::Canvas * canvas = new CApp::Canvas;
 
 	sf::RenderWindow window(sf::VideoMode(500, 500), "PK3");
 	window.clear(sf::Color::Black);
@@ -20,24 +18,19 @@ int main()
 			if (event.type == sf::Event::Resized)
 			{
 				window.setView(sf::View(sf::FloatRect(0, 0, static_cast<float>(event.size.width), static_cast<float>(event.size.height))));
-				refresh(window, canvas);
+				canvas->refresh(window);
 			}
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) // Rectangle test only
 			{
-				canvas.generateShape(new CApp::Rectangle(sf::Mouse::getPosition(window)));
-				auto shape = canvas.getLastShape();
+				canvas->generateShape(new CApp::Rectangle(sf::Mouse::getPosition(window)));
+				auto shape = canvas->getLastShape();
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					shape->updateShape(sf::Mouse::getPosition(window));
-					refresh(window, canvas);
+					canvas->refresh(window);
 				}
 			}
 		}
 	}
-}
 
-void refresh(sf::RenderWindow& window, CApp::Canvas& canvas)
-{
-	window.clear(sf::Color::Black);
-	for (const auto& el : canvas.getShapes()) window.draw(*(el->__shape));
-	window.display();
+	delete canvas;
 }
