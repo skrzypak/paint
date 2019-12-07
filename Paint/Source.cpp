@@ -2,7 +2,13 @@
 
 int main()
 {
-	CApp::Canvas * canvas = new CApp::Canvas;
+	const unsigned width = 500;
+	const unsigned int height = 500;
+	std::string title = "PAINT 2D";
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 4;
+
+	CApp::Canvas * canvas = new CApp::Canvas(CApp::WindowSettings({ width, height }, title, settings));
 	auto window = canvas->getWindow();
 
 	while (window->isOpen())

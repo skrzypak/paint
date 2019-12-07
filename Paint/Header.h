@@ -6,6 +6,7 @@
 #include "Shape.h"
 #include "Rectangle.h"
 #include "Ellipse.h"
+#include <cstring>
 
 #ifdef _DEBUG
 #include <vld.h>

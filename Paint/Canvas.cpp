@@ -1,10 +1,10 @@
 #include "Canvas.h"
 #include <iostream>
 
-CApp::Canvas::Canvas(): 
-	__window(new sf::RenderWindow(sf::VideoMode(500, 500), "PK3"))
+CApp::Canvas::Canvas(const CApp::WindowSettings& ws):
+	__window(new sf::RenderWindow(ws.videoMode, ws.title, sf::Style::Default, ws.contextSettings))
 {
-	std::cout << "CApp::Canvas::Canvas()" << std::endl;
+	std::cout << "CApp::Canvas::Canvas(const WindowsSettings& ws):__window(new sf::RenderWindow(vm, t, sf::Style::Default, s))" << std::endl;
 	__window->clear(sf::Color::Black);
 	__window->display();
 }
