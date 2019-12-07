@@ -20,9 +20,17 @@ int main()
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				canvas->generateShape(new CApp::Rectangle(sf::Mouse::getPosition(*window)));
-				//canvas->generateShape(new CApp::Ellipse(sf::Mouse::getPosition(*window)));
 				auto shape = canvas->getLastShape();
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					shape->updateShape(sf::Mouse::getPosition(*window));
+					canvas->refresh();
+				}
+			}
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+			{
+				canvas->generateShape(new CApp::Ellipse(sf::Mouse::getPosition(*window)));
+				auto shape = canvas->getLastShape();
+				while (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 					shape->updateShape(sf::Mouse::getPosition(*window));
 					canvas->refresh();
 				}
