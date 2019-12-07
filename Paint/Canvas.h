@@ -9,6 +9,7 @@ namespace CApp
 {
 	class Canvas
 	{
+		sf::RenderWindow* __window;
 		std::vector<Shape*> __shapes;
 		std::vector<Shape*> __getShapes();
 	public:
@@ -19,7 +20,8 @@ namespace CApp
 		void generateShape(Shape*);
 
 		Shape* getLastShape();
-		void refresh(sf::RenderWindow&);
+		void refresh();
+		sf::RenderWindow* getWindow();
 	};
 }
 

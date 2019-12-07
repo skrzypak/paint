@@ -1,9 +1,12 @@
 #include "Canvas.h"
 #include <iostream>
 
-CApp::Canvas::Canvas()
+CApp::Canvas::Canvas(): 
+	__window(new sf::RenderWindow(sf::VideoMode(500, 500), "PK3"))
 {
 	std::cout << "CApp::Canvas::Canvas()" << std::endl;
+	__window->clear(sf::Color::Black);
+	__window->display();
 }
 
 CApp::Canvas::~Canvas()
@@ -14,6 +17,7 @@ CApp::Canvas::~Canvas()
 		delete el;
 		el = nullptr;
 	}
+	delete __window;
 }
 
 void CApp::Canvas::generateShape(Shape* s)
@@ -28,12 +32,18 @@ CApp::Shape* CApp::Canvas::getLastShape()
 	return __shapes.back();
 }
 
-void CApp::Canvas::refresh(sf::RenderWindow& w)
+void CApp::Canvas::refresh()
 {
-	std::cout << "void CApp::Canvas::refresh(sf::RenderWindow& w)" << std::endl;
-	w.clear(sf::Color::Black);
-	for (const auto& el : this->__getShapes()) w.draw(*(el->__shape));
-	w.display();
+	std::cout << "void CApp::Canvas::refresh()" << std::endl;
+	this->__window->clear(sf::Color::Black);
+	for (const auto& el : this->__getShapes()) this->__window->draw(*(el->__shape));
+	this->__window->display();
+}
+
+sf::RenderWindow* CApp::Canvas::getWindow()
+{
+	std::cout << "sf::RenderWindow* CApp::Canvas::getWindow()" << std::endl;
+	return __window;
 }
 
 std::vector<CApp::Shape*> CApp::Canvas::__getShapes()
