@@ -16,6 +16,6 @@ namespace CApp
         virtual size_t getPointCount() const override;
         virtual sf::Vector2f getPoint(std::size_t) const override;
 
-        virtual void updateShape();
+        virtual void updateShape(const sf::Vector2i&);
 	};
 }

@@ -4,14 +4,18 @@
 namespace CApp
 { 
 	class Shape:
-		public sf::Shape
+		protected virtual sf::Shape
 	{
+	protected:
+		sf::Vector2i _startPixel;
 	public:
+		sf::RectangleShape* __shape; // Do testu
+
 		Shape() = default;
 		virtual ~Shape();
 
-		// Polymorphism - polimorfistyczne zaktualizowanie figury geometrycznej
-		virtual void updateShape() = 0;
+		// Polymorphism - polimorfistyczne zaktualizowanie figury geometrycznej i obiektu windows
+		virtual void updateShape(const sf::Vector2i&) = 0;
 
 		// Funkcje wirtualne sf::Shape potrzebne do generowania niestandardowych figur geometrycznych
 		virtual size_t getPointCount() const = 0;

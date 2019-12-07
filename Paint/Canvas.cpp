@@ -22,6 +22,12 @@ void CApp::Canvas::generateShape(Shape* s)
 	__shapes.push_back(s);
 }
 
+CApp::Shape* CApp::Canvas::getLastShape()
+{
+	std::cout << "CApp::Shape* CApp::Canvas::getLastShape()" << std::endl;
+	return __shapes.back();
+}
+
 std::vector<CApp::Shape*> CApp::Canvas::getShapes()
 {
 	std::cout << "std::vector<CApp::Shape*> CApp::Canvas::getShapes()" << std::endl;

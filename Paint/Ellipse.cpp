@@ -8,9 +8,9 @@ CApp::Ellipse::Ellipse() : __radius({0.f, 0.f})
     update();
 }
 
-void CApp::Ellipse::updateShape()
+void CApp::Ellipse::updateShape(const sf::Vector2i& curr)
 {
-	std::cout << "void CApp::Ellipse::updateShape()" << std::endl;
+	std::cout << "void CApp::Ellipse::updateShape(const sf::Vector2i& curr)" << std::endl;
 }
 
 CApp::Ellipse::~Ellipse()

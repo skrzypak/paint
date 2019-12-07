@@ -9,7 +9,7 @@ namespace CApp
 {
 	class Canvas
 	{
-		std::vector<CApp::Shape*> __shapes;
+		std::vector<Shape*> __shapes;
 	public:
 		Canvas();
 		~Canvas();
@@ -17,7 +17,8 @@ namespace CApp
 		// Polymorphism - polimorfistyczne stworzenie nowej figury geometrycznej
 		void generateShape(Shape*);
 
-		std::vector<CApp::Shape*> getShapes();
+		Shape* getLastShape();
+		std::vector<Shape*> getShapes();
 	};
 }
 
