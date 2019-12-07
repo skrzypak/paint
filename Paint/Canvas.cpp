@@ -36,7 +36,16 @@ void CApp::Canvas::refresh()
 {
 	std::cout << "void CApp::Canvas::refresh()" << std::endl;
 	this->__window->clear(sf::Color::Black);
-	for (const auto& el : this->__getShapes()) this->__window->draw(*(el->__shape));
+	for (const auto& figure : this->__getShapes())
+	{
+		try {
+			sf::Drawable* seed = static_cast<sf::Drawable*>(figure->getDrawable());
+			this->__window->draw(*seed);
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+		}
+	}
 	this->__window->display();
 }
 

@@ -5,7 +5,6 @@ CApp::Rectangle::Rectangle(const sf::Vector2i& s):
 	__shape(new sf::RectangleShape)
 {
 	std::cout << "CApp::Rectangle::Rectangle(const sf::Vector2i& s): __shape(new sf::RectangleShape)" << std::endl;
-	CApp::Shape::__shape = __shape; // Do testu
 	_startPixel = s;
 	__shape->setPosition(sf::Vector2f(_startPixel));
 }
@@ -21,6 +20,12 @@ CApp::Rectangle::~Rectangle()
 	std::cout << "CApp::Rectangle::~Rectangle()" << std::endl;
 	delete __shape;
 	__shape = nullptr;
+}
+
+void* CApp::Rectangle::getDrawable() const
+{
+	std::cout << "void* CApp::Rectangle::getDrawable() const" << std::endl;
+	return __shape;
 }
 
 size_t CApp::Rectangle::getPointCount() const

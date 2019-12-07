@@ -17,9 +17,10 @@ int main()
 				window->setView(sf::View(sf::FloatRect(0, 0, static_cast<float>(event.size.width), static_cast<float>(event.size.height))));
 				canvas->refresh();
 			}
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) // Rectangle test only
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				canvas->generateShape(new CApp::Rectangle(sf::Mouse::getPosition(*window)));
+				//canvas->generateShape(new CApp::Ellipse(sf::Mouse::getPosition(*window)));
 				auto shape = canvas->getLastShape();
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					shape->updateShape(sf::Mouse::getPosition(*window));
