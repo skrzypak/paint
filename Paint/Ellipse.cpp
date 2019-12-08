@@ -1,17 +1,18 @@
 #include "Ellipse.h"
-#include <iostream>
 
-CApp::Ellipse::Ellipse(const sf::Vector2i& s):
-    Polygons(30)
+CApp::Ellipse::Ellipse(const sf::Vector2i& s): Polygons(30)
 {
-    std::cout << "CApp::Ellipse::Ellipse(const sf::Vector2i& s): _radius(sf::Vector2f(0.f, 0.f))" << std::endl;
-    __shape = this;
-    _startPixel = s;
-    __shape->setPosition(sf::Vector2f(static_cast<float>(s.x), static_cast<float>(s.y)));
+#ifdef _DEBUG
+	std::cout << "CApp::Ellipse::Ellipse(const sf::Vector2i& s): Polygons(30)" << std::endl;
+#endif
+    _startXY = s;
+    this->setPosition(sf::Vector2f(static_cast<float>(s.x), static_cast<float>(s.y)));
 }
 
 void* CApp::Ellipse::getDrawable() const
 {
+#ifdef _DEBUG
 	std::cout << "void* CApp::Ellipse::getDrawable() const" << std::endl;
-	return __shape;
+#endif
+	return const_cast<Ellipse*>(this);
 }

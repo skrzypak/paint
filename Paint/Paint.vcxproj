@@ -138,13 +138,11 @@
     <ClCompile Include="Hexagon.cpp" />
     <ClCompile Include="Polygons.cpp" />
     <ClCompile Include="Rectangle.cpp" />
-    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Ellipse.h" />
-    <ClInclude Include="Header.h" />
     <ClInclude Include="Hexagon.h" />
     <ClInclude Include="Polygons.h" />
     <ClInclude Include="Rectangle.h" />

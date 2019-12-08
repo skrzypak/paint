@@ -1,44 +1,53 @@
 #include "Rectangle.h"
-#include <iostream>
 
 CApp::Rectangle::Rectangle(const sf::Vector2i& s): 
-	__shape(new sf::RectangleShape)
+	__rectangle(new sf::RectangleShape)
 {
-	std::cout << "CApp::Rectangle::Rectangle(const sf::Vector2i& s): __shape(new sf::RectangleShape)" << std::endl;
-	_startPixel = s;
-	__shape->setPosition(sf::Vector2f(_startPixel));
-}
-
-void CApp::Rectangle::updateShape(const sf::Vector2i& curr)
-{
-	std::cout << "void CApp::Rectangle::updateShape(const sf::Vector2i& curr)" << std::endl;
-	__shape->setSize(sf::Vector2f(static_cast<float>(curr.x - _startPixel.x), static_cast<float>(curr.y - _startPixel.y)));
+#ifdef _DEBUG
+	std::cout << "CApp::Rectangle::Rectangle(const sf::Vector2i& s): __rectangle(new sf::RectangleShape)" << std::endl;
+#endif
+	_startXY = s;
+	__rectangle->setPosition(sf::Vector2f(_startXY));
 }
 
 CApp::Rectangle::~Rectangle()
 {
+#ifdef _DEBUG
 	std::cout << "CApp::Rectangle::~Rectangle()" << std::endl;
-	delete __shape;
-	__shape = nullptr;
-}
-
-void* CApp::Rectangle::getDrawable() const
-{
-	std::cout << "void* CApp::Rectangle::getDrawable() const" << std::endl;
-	return __shape;
+#endif
+	delete 	__rectangle;
+	__rectangle = nullptr;
 }
 
 size_t CApp::Rectangle::getPointCount() const
 {
-	// Return
+#ifdef _DEBUG
 	std::cout << "size_t CApp::Rectangle::getPointCount() const" << std::endl;
-	return __shape->getPointCount();
+#endif
+	return 	__rectangle->getPointCount();
 }
 
 sf::Vector2f CApp::Rectangle::getPoint(std::size_t index) const
 {
-	// Return
+#ifdef _DEBUG
 	std::cout << "sf::Vector2f CApp::Rectangle::getPoint(std::size_t index) const" << std::endl;
-	return __shape->getPoint(index);
+#endif
+	return 	__rectangle->getPoint(index);
 }
 
+void* CApp::Rectangle::getDrawable() const
+{
+#ifdef _DEBUG
+	std::cout << "void* CApp::Rectangle::getDrawable() const" << std::endl;
+#endif
+	return	__rectangle;
+}
+
+void CApp::Rectangle::update(const sf::Vector2i& curr)
+{
+	// TO DO
+#ifdef _DEBUG
+	std::cout << "void CApp::Rectangle::update(const sf::Vector2i& curr)" << std::endl;
+#endif
+	__rectangle->setSize(sf::Vector2f(static_cast<float>(curr.x - _startXY.x), static_cast<float>(curr.y - _startXY.y)));
+}
