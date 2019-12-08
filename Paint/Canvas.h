@@ -1,5 +1,6 @@
 #pragma once
 #include "Shape.h"
+#include <TGUI/TGUI.hpp>
 #include <vector>
 
 #ifdef _DEBUG
@@ -18,7 +19,7 @@ namespace CApp
 		~Canvas();
 
 		// Polymorphism
-		void refresh(sf::RenderWindow*, sf::Color = sf::Color::Black);
+		void refresh(sf::RenderWindow*, tgui::Gui*, sf::Color = sf::Color::Black);
 		Shape* generateShape(Shape*);
 	};
 }

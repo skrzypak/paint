@@ -28,12 +28,13 @@ CApp::Shape* CApp::Canvas::generateShape(Shape* s)
 	return s;
 }
 
-void CApp::Canvas::refresh(sf::RenderWindow* w, sf::Color c)
+void CApp::Canvas::refresh(sf::RenderWindow* w, tgui::Gui* g, sf::Color c)
 {
 #ifdef _DEBUG
-	std::cout << "void CApp::Canvas::refresh(sf::RenderWindow* w, sf::Color c)" << std::endl;
+	std::cout << "void CApp::Canvas::refresh(sf::RenderWindow* w,  tgui::Gui* g, sf::Color c)" << std::endl;
 #endif
 	w->clear(c);
 	for (const auto& s : __vecShapes) w->draw(*static_cast<sf::Drawable*>(s->getDrawable()));
+	(*g).draw();
 	w->display();
 }
