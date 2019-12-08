@@ -7,6 +7,13 @@
 
 namespace CApp
 { 
+	class ShapeProperites
+	{
+		sf::Color color;
+		//size
+		//pattern
+	};
+
 	class Shape: protected sf::Shape
 	{
 	protected:
