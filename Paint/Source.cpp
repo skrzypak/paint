@@ -13,30 +13,30 @@
 #include <vld.h>
 #endif
 
-CMenu::Shape* gShapeController = new CMenu::Type<CApp::Rectangle>;
+Controller* CTR = new Controller();
 
-template<class T> CMenu::Shape* createInstance()
+template<class T> 
+Controller* createInstance()
 {
-	if (gShapeController != nullptr) delete gShapeController;
-	gShapeController = new CMenu::Type<T>;
-	return gShapeController;
+	CTR->changeShapeController<T>();
+	return CTR;
 }
+
 
 int main()
 {
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(750, 750), "PAINT 2D", sf::Style::Titlebar | sf::Style::Close);
 	CApp::Canvas* canvas = new CApp::Canvas;
-	sf::ContextSettings settings;
-	settings.antialiasingLevel = 4;
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(750, 750), "PAINT 2D", sf::Style::Titlebar | sf::Style::Close, settings);
 	tgui::Gui* gui = new tgui::Gui{ *window };
 	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
 	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
 	menu->setTextSize(13);
 
-	std::multimap <std::string, CMenu::Shape* (*)() > MENU;
+	std::multimap <std::string, Controller* (*)() > MENU;
 	MENU.insert(std::make_pair("Shape/Ellipse", &createInstance<CApp::Ellipse>));
 	MENU.insert(std::make_pair("Shape/Hexagon", &createInstance<CApp::Hexagon>));
 	MENU.insert(std::make_pair("Shape/Rectangle", &createInstance<CApp::Rectangle>));
+
 	menu->addMenu("Shape");
 	for (auto const& el : MENU)
 	{
@@ -59,7 +59,7 @@ int main()
 			if(event.type == sf::Event::Closed) window->close();
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				auto shape = gShapeController->generate(canvas, sf::Mouse::getPosition(*window));
+				auto shape = CTR->getShapeController()->generate(canvas, sf::Mouse::getPosition(*window));
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					shape->update(sf::Mouse::getPosition(*window));
 					canvas->refresh(window, gui);
@@ -71,10 +71,11 @@ int main()
 	delete canvas;
 	delete gui;
 	delete window;
-	delete gShapeController;
+	delete CTR;
 	canvas = nullptr;
 	window = nullptr;
 	gui = nullptr;
-	gShapeController = nullptr;
+	CTR = nullptr;
+
 	return EXIT_SUCCESS;
 }
