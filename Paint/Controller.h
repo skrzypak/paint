@@ -31,10 +31,9 @@ public:
 	};
 
 	template <class SHAPE>
-	Controller::Shape* changeShapeController() {
+	void changeShapeController() {
 		delete __shape;
 		__shape = new Controller::Type<SHAPE>;
-		return __shape;
 	};
 
 	Controller::Shape* getShapeController() {

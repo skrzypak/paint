@@ -13,16 +13,6 @@
 #include <vld.h>
 #endif
 
-Controller* CTR = new Controller();
-
-template<class T> 
-Controller* createInstance()
-{
-	CTR->changeShapeController<T>();
-	return CTR;
-}
-
-
 int main()
 {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(750, 750), "PAINT 2D", sf::Style::Titlebar | sf::Style::Close);
@@ -31,13 +21,19 @@ int main()
 	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
 	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
 	menu->setTextSize(13);
+	
+	Controller* CTR = new Controller();
 
-	std::multimap <std::string, Controller* (*)() > MENU;
-	MENU.insert(std::make_pair("Shape/Ellipse", &createInstance<CApp::Ellipse>));
-	MENU.insert(std::make_pair("Shape/Hexagon", &createInstance<CApp::Hexagon>));
-	MENU.insert(std::make_pair("Shape/Rectangle", &createInstance<CApp::Rectangle>));
+	std::multimap <std::string, std::function<void()>> MENU;
+	MENU.emplace(std::make_pair("Shape/Ellipse", [&, CTR] {CTR->changeShapeController<CApp::Ellipse>();}));
+	MENU.emplace(std::make_pair("Shape/Hexagon", [&, CTR] {CTR->changeShapeController<CApp::Hexagon>();}));
+	MENU.emplace(std::make_pair("Shape/Rectangle", [&, CTR] {CTR->changeShapeController<CApp::Rectangle>();}));
+
+	//std::map <std::string, std::function<void()>> MENU_V2;
+	//MENU_V2.emplace("Shape/Ellipse", [&, CTR] {CTR->changeShapeController<CApp::Ellipse>();});
 
 	menu->addMenu("Shape");
+
 	for (auto const& el : MENU)
 	{
 		std::string parrent = (el.first).substr(0, (el.first).find('/'));
