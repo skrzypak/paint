@@ -31,7 +31,7 @@ public:
 	};
 
 	template <class SHAPE>
-	void changeShapeController() {
+	void setShape() {
 		delete __shape;
 		__shape = new Controller::Type<SHAPE>;
 	};

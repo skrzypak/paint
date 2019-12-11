@@ -15,31 +15,27 @@
 
 int main()
 {
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(750, 750), "PAINT 2D", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(500, 500), "PAINT 2D", sf::Style::Titlebar | sf::Style::Close);
 	CApp::Canvas* canvas = new CApp::Canvas;
 	tgui::Gui* gui = new tgui::Gui{ *window };
 	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
-	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
-	menu->setTextSize(13);
 	
 	Controller* CTR = new Controller();
+	
+	std::multimap <std::vector<sf::String>, std::function<void()>> menuOptions;
+	menuOptions.emplace(std::vector<sf::String> { "Color", "Fill", "Red" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
+	menuOptions.emplace(std::vector<sf::String> { "Color", "Border", "Red" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
+	menuOptions.emplace(std::vector<sf::String> { "Shape", "Ellipse" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
+	menuOptions.emplace(std::vector<sf::String> { "Shape", "Hexagon" }, [&, CTR] { CTR->setShape<CApp::Hexagon>(); });
+	menuOptions.emplace(std::vector<sf::String> { "Shape", "Rectangle" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
+	
+	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
+	menu->setTextSize(13);
 
-	std::multimap <std::string, std::function<void()>> MENU;
-	MENU.emplace(std::make_pair("Shape/Ellipse", [&, CTR] {CTR->changeShapeController<CApp::Ellipse>();}));
-	MENU.emplace(std::make_pair("Shape/Hexagon", [&, CTR] {CTR->changeShapeController<CApp::Hexagon>();}));
-	MENU.emplace(std::make_pair("Shape/Rectangle", [&, CTR] {CTR->changeShapeController<CApp::Rectangle>();}));
-
-	//std::map <std::string, std::function<void()>> MENU_V2;
-	//MENU_V2.emplace("Shape/Ellipse", [&, CTR] {CTR->changeShapeController<CApp::Ellipse>();});
-
-	menu->addMenu("Shape");
-
-	for (auto const& el : MENU)
+	for (auto const& option: menuOptions)
 	{
-		std::string parrent = (el.first).substr(0, (el.first).find('/'));
-		std::string child = (el.first).substr((el.first).find('/') + 1, (el.first).size() - 1);
-		menu->addMenuItem(parrent, child);
-		menu->connectMenuItem(parrent, child, el.second);
+		menu->addMenuItem(option.first);
+		menu->connectMenuItem(option.first, option.second);
 	}
 
 	(*gui).add(menu);
