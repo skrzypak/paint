@@ -43,11 +43,13 @@ void* CApp::Rectangle::getDrawable() const
 	return	__rectangle;
 }
 
-void CApp::Rectangle::update(const sf::Vector2i& curr)
+void CApp::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)
 {
 	// TO DO
 #ifdef _DEBUG
-	std::cout << "void CApp::Rectangle::update(const sf::Vector2i& curr)" << std::endl;
+	std::cout << "void CApp::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
 	__rectangle->setSize(sf::Vector2f(static_cast<float>(curr.x - _startXY.x), static_cast<float>(curr.y - _startXY.y)));
+	__rectangle->setFillColor(p->fillColor);
+	__rectangle->setOutlineColor(p->outlineColor);
 }

@@ -23,8 +23,14 @@ int main()
 	Controller* CTR = new Controller();
 	
 	std::multimap <std::vector<sf::String>, std::function<void()>> menuOptions;
-	menuOptions.emplace(std::vector<sf::String> { "Color", "Fill", "Red" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
-	menuOptions.emplace(std::vector<sf::String> { "Color", "Border", "Red" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
+	menuOptions.emplace(std::vector<sf::String> { "Fill", "Color", "Red" }, [&, CTR] { CTR->setFillColor(sf::Color::Red); });
+	menuOptions.emplace(std::vector<sf::String> { "Fill", "Color", "Green" }, [&, CTR] { CTR->setFillColor(sf::Color::Green); });
+	menuOptions.emplace(std::vector<sf::String> { "Fill", "Color", "Blue" }, [&, CTR] { CTR->setFillColor(sf::Color::Blue); });
+	menuOptions.emplace(std::vector<sf::String> { "Fill", "Color", "White" }, [&, CTR] { CTR->setFillColor(sf::Color::White); });
+	menuOptions.emplace(std::vector<sf::String> { "Outline", "Color", "Red" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Red); });
+	menuOptions.emplace(std::vector<sf::String> { "Outline", "Color", "Green" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Green); });
+	menuOptions.emplace(std::vector<sf::String> { "Outline", "Color", "Blue" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Blue); });
+	menuOptions.emplace(std::vector<sf::String> { "Outline", "Color", "White" }, [&, CTR] { CTR->setOutlineColor(sf::Color::White); });
 	menuOptions.emplace(std::vector<sf::String> { "Shape", "Ellipse" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
 	menuOptions.emplace(std::vector<sf::String> { "Shape", "Hexagon" }, [&, CTR] { CTR->setShape<CApp::Hexagon>(); });
 	menuOptions.emplace(std::vector<sf::String> { "Shape", "Rectangle" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
@@ -53,7 +59,7 @@ int main()
 			{
 				auto shape = CTR->getShapeController()->generate(canvas, sf::Mouse::getPosition(*window));
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					shape->update(sf::Mouse::getPosition(*window));
+					shape->update(sf::Mouse::getPosition(*window), CTR->getProperites());
 					canvas->refresh(window, gui);
 				}
 			}

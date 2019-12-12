@@ -1,7 +1,13 @@
 #pragma once
-#include <iostream>
 #include "Canvas.h"
 #include "Shape.h"
+#include "Rectangle.h"
+#include "ShapeProperities.h"
+#include <SFML/Graphics.hpp>
+
+#ifdef DEBUG
+#include <iostream>
+#endif
 
 class Controller
 {
@@ -14,29 +20,31 @@ class Controller
 	template <class SHAPE>
 	class Type: public Shape
 	{
-		virtual CApp::Shape* generate(CApp::Canvas* c, const sf::Vector2i& v) const override {
-			return c->generateShape(new SHAPE(v));
-		};
+		virtual CApp::Shape* generate(CApp::Canvas* c, const sf::Vector2i& v) const override;
 	};
 
 	Controller::Shape* __shape;
+	ShapeProperities* __properites;
 
 public:
+	Controller();
+	~Controller();
+	template <class SHAPE> void setShape();
+	Controller::Shape* getShapeController();
+	ShapeProperities* getProperites();
+	void setFillColor(sf::Color);
+	void setOutlineColor(sf::Color);
+};
 
-	Controller() : __shape(new Controller::Type<CApp::Rectangle>) {};
-	
-	~Controller() {
-		delete __shape;
-		__shape = nullptr;
-	};
+template<class SHAPE>
+inline void Controller::setShape()
+{
+	delete __shape;
+	__shape = new Controller::Type<SHAPE>;
+};
 
-	template <class SHAPE>
-	void setShape() {
-		delete __shape;
-		__shape = new Controller::Type<SHAPE>;
-	};
-
-	Controller::Shape* getShapeController() {
-		return __shape;
-	};
+template<class SHAPE>
+inline CApp::Shape* Controller::Type<SHAPE>::generate(CApp::Canvas* c, const sf::Vector2i& v) const
+{
+	return c->generateShape(new SHAPE(v));
 };

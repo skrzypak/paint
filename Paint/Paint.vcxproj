@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="Hexagon.cpp" />
     <ClCompile Include="Polygons.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Polygons.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="ShapeProperities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,6 +19,6 @@ namespace CApp
         
         sf::Vector2f* getRadius() const;
         void setRadius(const sf::Vector2f&);
-        void update(const sf::Vector2i&);
+        void update(const sf::Vector2i&, ShapeProperities*);
 	};
 }

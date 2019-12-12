@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "ShapeProperities.h"
 
 #ifdef _DEBUG
 #include <iostream>
@@ -7,13 +8,6 @@
 
 namespace CApp
 { 
-	class ShapeProperites
-	{
-		sf::Color color;
-		//size
-		//pattern
-	};
-
 	class Shape: protected sf::Shape
 	{
 	protected:
@@ -22,7 +16,7 @@ namespace CApp
 		Shape() = default;
 
 		// Polymorphism - polimorfistyczne zaktualizowanie figury geometrycznej
-		virtual void update(const sf::Vector2i&) = 0;
+		virtual void update(const sf::Vector2i&, ShapeProperities*) = 0;
 		virtual void* getDrawable() const = 0;
 
 		// Funkcje wirtualne sf::Shape potrzebne do generowania niestandardowych figur geometrycznych

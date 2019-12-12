@@ -54,12 +54,14 @@ void CApp::Polygons::setRadius(const sf::Vector2f& r)
     *__radius = r;
 }
 
-void CApp::Polygons::update(const sf::Vector2i& curr)
+void CApp::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)
 {
     // TO DO
 #ifdef _DEBUG
-    std::cout << "void CApp::Polygons::update(const sf::Vector2i& curr)" << std::endl;
+    std::cout << "void CApp::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
     setRadius(sf::Vector2f(static_cast<float>((curr.x - _startXY.x) / 2), static_cast<float>((curr.y - _startXY.y) / 2)));
+    sf::Shape::setFillColor(p->fillColor);
+    sf::Shape::setOutlineColor(p->outlineColor);
     sf::Shape::update();
 }
