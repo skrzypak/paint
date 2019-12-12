@@ -17,7 +17,10 @@ std::multimap <std::vector<sf::String>, std::function<void()>> setMenu(Controlle
 
 int main()
 {
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(500, 500), "PAINT 2D", sf::Style::Titlebar | sf::Style::Close);
+	sf::Image icon;
+	if (!icon.loadFromFile("../assets/icon.png")) return EXIT_FAILURE;
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(500, 500), "PAINT PK3", sf::Style::Titlebar | sf::Style::Close);
+	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	CApp::Canvas* canvas = new CApp::Canvas;
 	tgui::Gui* gui = new tgui::Gui{ *window };
 	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
@@ -85,8 +88,8 @@ std::multimap <std::vector<sf::String>, std::function<void()>> setMenu(Controlle
 	m.emplace(std::vector<sf::String> { "Fill", "Color", "Green" }, [&, CTR] { CTR->setFillColor(sf::Color::Green); });
 	m.emplace(std::vector<sf::String> { "Fill", "Color", "Blue" }, [&, CTR] { CTR->setFillColor(sf::Color::Blue); });
 	m.emplace(std::vector<sf::String> { "Fill", "Color", "White" }, [&, CTR] { CTR->setFillColor(sf::Color::White); });
-	m.emplace(std::vector<sf::String> { "Fill", "Texture", "Grunde Style" }, [&, CTR] { CTR->setTexture("../Image/Grunge_Style.png"); });
-	m.emplace(std::vector<sf::String> { "Fill", "Texture", "Watercolor" }, [&, CTR] { CTR->setTexture("../Image/Watercolor.png"); });
+	m.emplace(std::vector<sf::String> { "Fill", "Texture", "Grunde Style" }, [&, CTR] { CTR->setTexture("../assets/textures/grunge-style.png"); });
+	m.emplace(std::vector<sf::String> { "Fill", "Texture", "Watercolor" }, [&, CTR] { CTR->setTexture("../assets/textures/watercolor.png"); });
 	m.emplace(std::vector<sf::String> { "Fill", "Texture", "None" }, [&, CTR] { CTR->clearTexture(); });
 	m.emplace(std::vector<sf::String> { "Outline", "Color", "Red" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Red); });
 	m.emplace(std::vector<sf::String> { "Outline", "Color", "Green" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Green); });
