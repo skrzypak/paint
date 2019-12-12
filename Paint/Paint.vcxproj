@@ -139,6 +139,7 @@
     <ClCompile Include="Hexagon.cpp" />
     <ClCompile Include="Polygons.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,8 @@
 #include <vld.h>
 #endif
 
+std::multimap <std::vector<sf::String>, std::function<void()>> setMenu(Controller*);
+
 int main()
 {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(500, 500), "PAINT 2D", sf::Style::Titlebar | sf::Style::Close);
@@ -21,19 +23,7 @@ int main()
 	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
 	
 	Controller* CTR = new Controller();
-	
-	std::multimap <std::vector<sf::String>, std::function<void()>> menuOptions;
-	menuOptions.emplace(std::vector<sf::String> { "Fill", "Color", "Red" }, [&, CTR] { CTR->setFillColor(sf::Color::Red); });
-	menuOptions.emplace(std::vector<sf::String> { "Fill", "Color", "Green" }, [&, CTR] { CTR->setFillColor(sf::Color::Green); });
-	menuOptions.emplace(std::vector<sf::String> { "Fill", "Color", "Blue" }, [&, CTR] { CTR->setFillColor(sf::Color::Blue); });
-	menuOptions.emplace(std::vector<sf::String> { "Fill", "Color", "White" }, [&, CTR] { CTR->setFillColor(sf::Color::White); });
-	menuOptions.emplace(std::vector<sf::String> { "Outline", "Color", "Red" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Red); });
-	menuOptions.emplace(std::vector<sf::String> { "Outline", "Color", "Green" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Green); });
-	menuOptions.emplace(std::vector<sf::String> { "Outline", "Color", "Blue" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Blue); });
-	menuOptions.emplace(std::vector<sf::String> { "Outline", "Color", "White" }, [&, CTR] { CTR->setOutlineColor(sf::Color::White); });
-	menuOptions.emplace(std::vector<sf::String> { "Shape", "Ellipse" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
-	menuOptions.emplace(std::vector<sf::String> { "Shape", "Hexagon" }, [&, CTR] { CTR->setShape<CApp::Hexagon>(); });
-	menuOptions.emplace(std::vector<sf::String> { "Shape", "Rectangle" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
+	auto menuOptions = setMenu(CTR);
 	
 	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
 	menu->setTextSize(13);
@@ -44,7 +34,7 @@ int main()
 		menu->connectMenuItem(option.first, option.second);
 	}
 
-	(*gui).add(menu);
+	gui->add(menu);
 	canvas->refresh(window, gui);
 
 	while (window->isOpen())
@@ -52,7 +42,7 @@ int main()
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
-			if ((*gui).handleEvent(event) ==  1) canvas->refresh(window, gui);
+			if (gui->handleEvent(event) ==  1) canvas->refresh(window, gui);
 			if (event.type) window->clear(sf::Color::Black);
 			if(event.type == sf::Event::Closed) window->close();
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -62,6 +52,16 @@ int main()
 					shape->update(sf::Mouse::getPosition(*window), CTR->getProperites());
 					canvas->refresh(window, gui);
 				}
+			}
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+			{
+				CTR->reverseColors();
+				auto shape = CTR->getShapeController()->generate(canvas, sf::Mouse::getPosition(*window));
+				while (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+					shape->update(sf::Mouse::getPosition(*window), CTR->getProperites());
+					canvas->refresh(window, gui);
+				}
+				CTR->reverseColors();
 			}
 		}
 	}
@@ -74,6 +74,30 @@ int main()
 	window = nullptr;
 	gui = nullptr;
 	CTR = nullptr;
-
+	
 	return EXIT_SUCCESS;
+}
+
+std::multimap <std::vector<sf::String>, std::function<void()>> setMenu(Controller* CTR)
+{
+	std::multimap <std::vector<sf::String>, std::function<void()>> m;
+	m.emplace(std::vector<sf::String> { "Fill", "Color", "Red" }, [&, CTR] { CTR->setFillColor(sf::Color::Red); });
+	m.emplace(std::vector<sf::String> { "Fill", "Color", "Green" }, [&, CTR] { CTR->setFillColor(sf::Color::Green); });
+	m.emplace(std::vector<sf::String> { "Fill", "Color", "Blue" }, [&, CTR] { CTR->setFillColor(sf::Color::Blue); });
+	m.emplace(std::vector<sf::String> { "Fill", "Color", "White" }, [&, CTR] { CTR->setFillColor(sf::Color::White); });
+	m.emplace(std::vector<sf::String> { "Fill", "Texture", "Grunde Style" }, [&, CTR] { CTR->setTexture("../Image/Grunge_Style.png"); });
+	m.emplace(std::vector<sf::String> { "Fill", "Texture", "Watercolor" }, [&, CTR] { CTR->setTexture("../Image/Watercolor.png"); });
+	m.emplace(std::vector<sf::String> { "Fill", "Texture", "None" }, [&, CTR] { CTR->clearTexture(); });
+	m.emplace(std::vector<sf::String> { "Outline", "Color", "Red" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Red); });
+	m.emplace(std::vector<sf::String> { "Outline", "Color", "Green" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Green); });
+	m.emplace(std::vector<sf::String> { "Outline", "Color", "Blue" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Blue); });
+	m.emplace(std::vector<sf::String> { "Outline", "Color", "White" }, [&, CTR] { CTR->setOutlineColor(sf::Color::White); });
+	m.emplace(std::vector<sf::String> { "Outline", "Size", "None" }, [&, CTR] { CTR->setOutlineSize(0); });
+	m.emplace(std::vector<sf::String> { "Outline", "Size", "Thin" }, [&, CTR] { CTR->setOutlineSize(5); });
+	m.emplace(std::vector<sf::String> { "Outline", "Size", "Medium" }, [&, CTR] { CTR->setOutlineSize(10); });
+	m.emplace(std::vector<sf::String> { "Outline", "Size", "Thick" }, [&, CTR] { CTR->setOutlineSize(15); });
+	m.emplace(std::vector<sf::String> { "Shape", "Ellipse" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
+	m.emplace(std::vector<sf::String> { "Shape", "Hexagon" }, [&, CTR] { CTR->setShape<CApp::Hexagon>(); });
+	m.emplace(std::vector<sf::String> { "Shape", "Rectangle" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
+	return m;
 }

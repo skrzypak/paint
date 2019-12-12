@@ -48,4 +48,39 @@ void Controller::setOutlineColor(sf::Color c)
 	std::cout << "void Controller::setOutlineColor(sf::Color c)" << std::endl;
 #endif
 	__properites->outlineColor = c;
-};
+}
+
+void Controller::setOutlineSize(float s)
+{
+#ifdef DEBUG
+	std::cout << "void Controller::setOutlineSize(float s)" << std::endl;
+#endif
+	__properites->outlineSize = s;
+}
+
+void Controller::reverseColors()
+{
+#ifdef DEBUG
+	std::cout << "void Controller::reverseColors()" << std::endl;
+#endif
+	auto tmp = __properites->fillColor;
+	__properites->fillColor = __properites->outlineColor;
+	__properites->outlineColor = tmp;
+}
+
+void Controller::setTexture(std::string path)
+{
+#ifdef DEBUG
+	std::<< "void Controller::setTexture(std::string path)" << std::endl;
+#endif
+	(*__properites->texture).loadFromFile(path);
+}
+
+void Controller::clearTexture()
+{
+#ifdef DEBUG
+	std:: << "void Controller::clearTexture()" << std::endl;
+#endif
+	delete __properites->texture;
+	__properites->texture = new sf::Texture;
+}

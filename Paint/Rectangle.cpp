@@ -1,7 +1,8 @@
 #include "Rectangle.h"
 
 CApp::Rectangle::Rectangle(const sf::Vector2i& s): 
-	__rectangle(new sf::RectangleShape)
+	__rectangle(new sf::RectangleShape),
+	CApp::Shape()
 {
 #ifdef _DEBUG
 	std::cout << "CApp::Rectangle::Rectangle(const sf::Vector2i& s): __rectangle(new sf::RectangleShape)" << std::endl;
@@ -52,4 +53,7 @@ void CApp::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)
 	__rectangle->setSize(sf::Vector2f(static_cast<float>(curr.x - _startXY.x), static_cast<float>(curr.y - _startXY.y)));
 	__rectangle->setFillColor(p->fillColor);
 	__rectangle->setOutlineColor(p->outlineColor);
+	__rectangle->setOutlineThickness(p->outlineSize);
+	*_texture = (*p->texture);
+	__rectangle->setTexture(_texture);
 }

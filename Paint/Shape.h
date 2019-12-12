@@ -12,8 +12,9 @@ namespace CApp
 	{
 	protected:
 		sf::Vector2i _startXY;
+		sf::Texture* _texture;
 	public:
-		Shape() = default;
+		Shape();
 
 		// Polymorphism - polimorfistyczne zaktualizowanie figury geometrycznej
 		virtual void update(const sf::Vector2i&, ShapeProperities*) = 0;
@@ -22,6 +23,7 @@ namespace CApp
 		// Funkcje wirtualne sf::Shape potrzebne do generowania niestandardowych figur geometrycznych
 		virtual size_t getPointCount() const = 0;
 		virtual sf::Vector2f getPoint(std::size_t) const = 0;
+		virtual ~Shape();
 	};
 }
 

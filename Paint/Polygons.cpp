@@ -1,8 +1,9 @@
 #include "Polygons.h"
 
-CApp::Polygons::Polygons(unsigned int p):
+CApp::Polygons::Polygons(unsigned int p) :
     __radius(new sf::Vector2f(0.f, 0.f)),
-    __pointCount(p)
+    __pointCount(p),
+    CApp::Shape()
 {
 #ifdef _DEBUG
     std::cout << "CApp::Polygons::Polygons(unsigned int p): __radius(new sf::Vector2f(0.f, 0.f)), __pointCount(p)" << std::endl;
@@ -63,5 +64,8 @@ void CApp::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)
     setRadius(sf::Vector2f(static_cast<float>((curr.x - _startXY.x) / 2), static_cast<float>((curr.y - _startXY.y) / 2)));
     sf::Shape::setFillColor(p->fillColor);
     sf::Shape::setOutlineColor(p->outlineColor);
+    sf::Shape::setOutlineThickness(p->outlineSize);
+    *_texture = (*p->texture);
+    sf::Shape::setTexture(_texture);
     sf::Shape::update();
 }

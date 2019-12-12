@@ -35,6 +35,6 @@ void CApp::Canvas::refresh(sf::RenderWindow* w, tgui::Gui* g, sf::Color c)
 #endif
 	w->clear(c);
 	for (const auto& s : __vecShapes) w->draw(*static_cast<sf::Drawable*>(s->getDrawable()));
-	(*g).draw();
+	g->draw();
 	w->display();
 }

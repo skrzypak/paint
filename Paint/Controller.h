@@ -34,6 +34,10 @@ public:
 	ShapeProperities* getProperites();
 	void setFillColor(sf::Color);
 	void setOutlineColor(sf::Color);
+	void setOutlineSize(float);
+	void reverseColors();
+	void setTexture(std::string = "");
+	void clearTexture();
 };
 
 template<class SHAPE>
