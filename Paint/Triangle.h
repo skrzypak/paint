@@ -8,6 +8,5 @@ namespace CApp
     public:
         Triangle() = delete;
         explicit Triangle(const sf::Vector2i&);
-        virtual void* getDrawable() const override;
     };
 }

@@ -8,6 +8,5 @@ namespace CApp
     public:
         Ellipse() = delete;
         explicit Ellipse(const sf::Vector2i&);
-        virtual void* getDrawable() const override;
     };
 }

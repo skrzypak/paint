@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Trapeze.cpp" />
     <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="Hexagon.cpp" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Trapeze.h" />
     <ClInclude Include="Diamond.h" />
     <ClInclude Include="Ellipse.h" />
     <ClInclude Include="Hexagon.h" />

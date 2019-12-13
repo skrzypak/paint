@@ -38,6 +38,14 @@ sf::Vector2f CApp::Polygons::getPoint(std::size_t index) const
     return sf::Vector2f((*__radius).x + x, (*__radius).y + y);
 }
 
+void CApp::Polygons::draw(sf::RenderWindow* w) const
+{
+#ifdef _DEBUG
+    std::cout << "void CApp::Polygons::draw(sf::RenderWindow* w) const" << std::endl;
+#endif
+    w->draw(*const_cast<Polygons*>(this));
+}
+
 sf::Vector2f* CApp::Polygons::getRadius() const
 {
 #ifdef _DEBUG
@@ -56,7 +64,6 @@ void CApp::Polygons::setRadius(const sf::Vector2f& r)
 
 void CApp::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)
 {
-    // TO DO
 #ifdef _DEBUG
     std::cout << "void CApp::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif

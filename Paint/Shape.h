@@ -19,7 +19,7 @@ namespace CApp
 
 		// Polymorphism - polimorfistyczne zaktualizowanie figury geometrycznej
 		virtual void update(const sf::Vector2i&, ShapeProperities*) = 0;
-		virtual void* getDrawable() const = 0;
+		virtual void draw(sf::RenderWindow*) const = 0;
 
 		// Funkcje wirtualne sf::Shape potrzebne do generowania niestandardowych figur geometrycznych
 		virtual size_t getPointCount() const = 0;

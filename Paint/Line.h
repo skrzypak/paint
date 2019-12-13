@@ -3,8 +3,7 @@
 
 namespace CApp
 {
-	class Line:
-		public Rectangle
+	class Line: public Rectangle
 	{
 	public:
 		Line() = delete;

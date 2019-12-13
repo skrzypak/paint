@@ -8,6 +8,5 @@ namespace CApp
     public:
         Hexagon() = delete;
         explicit Hexagon(const sf::Vector2i&);
-        virtual void* getDrawable() const override;
 	};
 }

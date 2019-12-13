@@ -36,13 +36,14 @@ sf::Vector2f CApp::Rectangle::getPoint(std::size_t index) const
 	return 	_rectangle->getPoint(index);
 }
 
-void* CApp::Rectangle::getDrawable() const
+void CApp::Rectangle::draw(sf::RenderWindow* w) const
 {
 #ifdef _DEBUG
-	std::cout << "void* CApp::Rectangle::getDrawable() const" << std::endl;
+	std::cout << "void CApp::Rectagnle::draw(sf::RenderWindow* w) const" << std::endl;
 #endif
-	return	_rectangle;
+	w->draw(*_rectangle);
 }
+
 
 void CApp::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)
 {

@@ -8,6 +8,5 @@ namespace CApp
     public:
         Pentagon() = delete;
         explicit Pentagon(const sf::Vector2i&);
-        virtual void* getDrawable() const override;
     };
 }

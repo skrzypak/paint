@@ -73,7 +73,8 @@ void Controller::setTexture(std::string path)
 #ifdef DEBUG
 	std::<< "void Controller::setTexture(std::string path)" << std::endl;
 #endif
-	(*__properites->texture).loadFromFile(path);
+	__properites->texture->loadFromFile(path);
+	__properites->texture->setSmooth(true);
 }
 
 void Controller::clearTexture()

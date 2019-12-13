@@ -8,6 +8,5 @@ namespace CApp
     public:
         Diamond() = delete;
         explicit Diamond(const sf::Vector2i&);
-        virtual void* getDrawable() const override;
     };
 }

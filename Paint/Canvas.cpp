@@ -34,13 +34,7 @@ void CApp::Canvas::refresh(sf::RenderWindow* w, tgui::Gui* g, sf::Color c)
 	std::cout << "void CApp::Canvas::refresh(sf::RenderWindow* w,  tgui::Gui* g, sf::Color c)" << std::endl;
 #endif
 	w->clear(c);
-	for (const auto& s : __vecShapes) w->draw(*static_cast<sf::Drawable*>(s->getDrawable()));
+	for (const auto& s : __vecShapes) s->draw(w);
 	g->draw();
-
-	sf::Vertex line[] =
-	{
-		sf::Vertex(sf::Vector2f(10.f, 10.f)),
-		sf::Vertex(sf::Vector2f(150.f, 150.f))
-	};
 	w->display();
 }
