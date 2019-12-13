@@ -5,6 +5,9 @@
 #include "Rectangle.h"
 #include "Ellipse.h"
 #include "Hexagon.h"
+#include "Triangle.h"
+#include "Diamond.h"
+#include "Pentagon.h"
 #include "Line.h"
 #include "Controller.h"
 #include <vector>
@@ -104,11 +107,11 @@ std::multimap <std::vector<sf::String>, std::function<void()>> setMenu(Controlle
 	m.emplace(std::vector<sf::String> { "Shape", "Hexagon" }, [&, CTR] { CTR->setShape<CApp::Hexagon>(); });
 	m.emplace(std::vector<sf::String> { "Shape", "Rectangle" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
 	m.emplace(std::vector<sf::String> { "Shape", "Line" }, [&, CTR] { CTR->setShape<CApp::Line>(); });
+	m.emplace(std::vector<sf::String> { "Shape", "Triangle" }, [&, CTR] { CTR->setShape<CApp::Triangle>(); });
+	m.emplace(std::vector<sf::String> { "Shape", "Diamond" }, [&, CTR] { CTR->setShape<CApp::Diamond>(); });
+	m.emplace(std::vector<sf::String> { "Shape", "Pentagon" }, [&, CTR] { CTR->setShape<CApp::Pentagon>(); });
 
-	m.emplace(std::vector<sf::String> { "Shape", "Triangle" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
 	m.emplace(std::vector<sf::String> { "Shape", "Trapeze" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
-	m.emplace(std::vector<sf::String> { "Shape", "Diamond" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
-	m.emplace(std::vector<sf::String> { "Shape", "Pentagon" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
 	m.emplace(std::vector<sf::String> { "Shape", "NO LIMIT :D" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
 
 	m.emplace(std::vector<sf::String> { "Shape", "Heart" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
