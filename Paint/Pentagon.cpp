@@ -6,5 +6,5 @@ CApp::Pentagon::Pentagon(const sf::Vector2i& s) : Polygons(5)
 	std::cout << "CApp::Pentagon::Pentagon(const sf::Vector2i& s): Polygons(30)" << std::endl;
 #endif
 	_startXY = s;
-	this->setPosition(sf::Vector2f(static_cast<float>(s.x), static_cast<float>(s.y)));
+	this->setPosition(sf::Vector2f(_startXY));
 }
