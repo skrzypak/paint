@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Custom.cpp" />
     <ClCompile Include="Trapeze.cpp" />
     <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="Ellipse.cpp" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Custom.h" />
     <ClInclude Include="Trapeze.h" />
     <ClInclude Include="Diamond.h" />
     <ClInclude Include="Ellipse.h" />

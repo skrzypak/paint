@@ -11,7 +11,7 @@ namespace CApp
 		sf::RectangleShape* _rectangle;
 
 	public:
-		Rectangle() = delete;
+		Rectangle();
 		~Rectangle();
 		explicit Rectangle(const sf::Vector2i&);
 		

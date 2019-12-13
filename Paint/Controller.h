@@ -1,7 +1,7 @@
 #pragma once
 #include "Canvas.h"
 #include "Shape.h"
-#include "Rectangle.h"
+#include "Custom.h"
 #include "ShapeProperities.h"
 #include <SFML/Graphics.hpp>
 

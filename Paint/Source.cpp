@@ -9,16 +9,15 @@
 #include "Trapeze.h"
 #include "Diamond.h"
 #include "Pentagon.h"
+#include "Custom.h"
 #include "Line.h"
 #include "Controller.h"
-#include <vector>
-#include <map>
 
 #ifdef _DEBUG
 #include <vld.h>
 #endif
 
-std::multimap <std::vector<sf::String>, std::function<void()>> setMenu(Controller*);
+void setMenu(Controller*, tgui::MenuBar::Ptr);
 
 int main()
 {
@@ -28,19 +27,13 @@ int main()
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	CApp::Canvas* canvas = new CApp::Canvas;
 	tgui::Gui* gui = new tgui::Gui{ *window };
-	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
 	
 	Controller* CTR = new Controller();
-	auto menuOptions = setMenu(CTR);
-	
+
+	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
 	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
 	menu->setTextSize(13);
-
-	for (auto const& option: menuOptions)
-	{
-		menu->addMenuItem(option.first);
-		menu->connectMenuItem(option.first, option.second);
-	}
+	setMenu(CTR, menu);
 
 	gui->add(menu);
 	canvas->refresh(window, gui);
@@ -86,35 +79,69 @@ int main()
 	return EXIT_SUCCESS;
 }
 
-std::multimap <std::vector<sf::String>, std::function<void()>> setMenu(Controller* CTR)
+void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 {
-	std::multimap <std::vector<sf::String>, std::function<void()>> m;
-	m.emplace(std::vector<sf::String> { "Fill", "Color", "Red" }, [&, CTR] { CTR->setFillColor(sf::Color::Red); });
-	m.emplace(std::vector<sf::String> { "Fill", "Color", "Green" }, [&, CTR] { CTR->setFillColor(sf::Color::Green); });
-	m.emplace(std::vector<sf::String> { "Fill", "Color", "Blue" }, [&, CTR] { CTR->setFillColor(sf::Color::Blue); });
-	m.emplace(std::vector<sf::String> { "Fill", "Color", "White" }, [&, CTR] { CTR->setFillColor(sf::Color::White); });
-	m.emplace(std::vector<sf::String> { "Fill", "Texture", "Grunde Style" }, [&, CTR] { CTR->setTexture("../assets/textures/grunge-style.png"); });
-	m.emplace(std::vector<sf::String> { "Fill", "Texture", "Watercolor" }, [&, CTR] { CTR->setTexture("../assets/textures/watercolor.png"); });
-	m.emplace(std::vector<sf::String> { "Fill", "Texture", "None" }, [&, CTR] { CTR->clearTexture(); });
-	m.emplace(std::vector<sf::String> { "Outline", "Color", "Red" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Red); });
-	m.emplace(std::vector<sf::String> { "Outline", "Color", "Green" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Green); });
-	m.emplace(std::vector<sf::String> { "Outline", "Color", "Blue" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Blue); });
-	m.emplace(std::vector<sf::String> { "Outline", "Color", "White" }, [&, CTR] { CTR->setOutlineColor(sf::Color::White); });
-	m.emplace(std::vector<sf::String> { "Outline", "Size", "None" }, [&, CTR] { CTR->setOutlineSize(0); });
-	m.emplace(std::vector<sf::String> { "Outline", "Size", "Thin" }, [&, CTR] { CTR->setOutlineSize(5); });
-	m.emplace(std::vector<sf::String> { "Outline", "Size", "Medium" }, [&, CTR] { CTR->setOutlineSize(10); });
-	m.emplace(std::vector<sf::String> { "Outline", "Size", "Thick" }, [&, CTR] { CTR->setOutlineSize(15); });
-	m.emplace(std::vector<sf::String> { "Shape", "Ellipse" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
-	m.emplace(std::vector<sf::String> { "Shape", "Hexagon" }, [&, CTR] { CTR->setShape<CApp::Hexagon>(); });
-	m.emplace(std::vector<sf::String> { "Shape", "Rectangle" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
-	m.emplace(std::vector<sf::String> { "Shape", "Line" }, [&, CTR] { CTR->setShape<CApp::Line>(); });
-	m.emplace(std::vector<sf::String> { "Shape", "Diamond" }, [&, CTR] { CTR->setShape<CApp::Diamond>(); });
-	m.emplace(std::vector<sf::String> { "Shape", "Pentagon" }, [&, CTR] { CTR->setShape<CApp::Pentagon>(); });
-	m.emplace(std::vector<sf::String> { "Shape", "Triangle" }, [&, CTR] { CTR->setShape<CApp::Triangle>(); });
-
-	m.emplace(std::vector<sf::String> { "Shape", "Trapeze" }, [&, CTR] { CTR->setShape<CApp::Trapeze>(); });
-
-	//m.emplace(std::vector<sf::String> { "Shape", ".NO LIMIT :D" }, [&, CTR] { CTR->setShape<CApp::Custom>(); });
 	
-	return m;
+	// --------------------------------------------MODE SECTION-----------------------------------------------------
+	menu->addMenuItem({ "Mode", "Pencil" });
+	menu->connectMenuItem("Mode", "Pencil", [&, CTR] { CTR->setShape<CApp::Custom>(); });
+	menu->addMenuItem({ "Mode", "Shape", "Line" });
+	menu->connectMenuItem({ "Mode", "Shape", "Line" }, [&, CTR] { CTR->setShape<CApp::Line>(); });
+	menu->addMenuItem({ "Mode", "Shape", "Triangle" });
+	menu->connectMenuItem({ "Mode", "Shape", "Triangle" }, [&, CTR] { CTR->setShape<CApp::Triangle>(); });
+	menu->addMenuItem({ "Mode", "Shape", "Trapeze" });
+	menu->connectMenuItem({ "Mode", "Shape", "Trapeze" }, [&, CTR] { CTR->setShape<CApp::Trapeze>(); });
+	menu->addMenuItem({ "Mode", "Shape", "Rectangle" });
+	menu->connectMenuItem({ "Mode", "Shape", "Rectangle" }, [&, CTR] { CTR->setShape<CApp::Rectangle>(); });
+	menu->addMenuItem({ "Mode", "Shape", "Diamond" });
+	menu->connectMenuItem({ "Mode", "Shape", "Diamond" }, [&, CTR] { CTR->setShape<CApp::Diamond>(); });
+	menu->addMenuItem({ "Mode", "Shape", "Pentagon" });
+	menu->connectMenuItem({ "Mode", "Shape", "Pentagon" }, [&, CTR] { CTR->setShape<CApp::Pentagon>(); });
+	menu->addMenuItem({ "Mode", "Shape", "Hexagon" });
+	menu->connectMenuItem({ "Mode", "Shape", "Hexagon" }, [&, CTR] { CTR->setShape<CApp::Hexagon>(); });
+	menu->addMenuItem({ "Mode", "Shape", "Ellipse" });
+	menu->connectMenuItem({ "Mode", "Shape", "Ellipse" }, [&, CTR] { CTR->setShape<CApp::Ellipse>(); });
+
+	// --------------------------------------------COLOR PRIMARY SECTION--------------------------------------------
+	menu->addMenuItem({ "Color", "Primary", "Red" });
+	menu->connectMenuItem({ "Color", "Primary", "Red" }, [&, CTR] { CTR->setFillColor(sf::Color::Red); });
+	menu->addMenuItem({ "Color", "Primary", "Green" });
+	menu->connectMenuItem({ "Color", "Primary", "Green" }, [&, CTR] { CTR->setFillColor(sf::Color::Green); });
+	menu->addMenuItem({ "Color", "Primary", "Blue" });
+	menu->connectMenuItem({ "Color", "Primary", "Blue" }, [&, CTR] { CTR->setFillColor(sf::Color::Blue); });
+	menu->addMenuItem({ "Color", "Primary", "White" });
+	menu->connectMenuItem({ "Color", "Primary", "White" }, [&, CTR] { CTR->setFillColor(sf::Color::White); });
+	menu->addMenuItem({ "Color", "Primary", "Black" });
+	menu->connectMenuItem({ "Color", "Primary", "Black" }, [&, CTR] { CTR->setFillColor(sf::Color::Black); });
+
+	// --------------------------------------------COLOR SECONDARY SECTION------------------------------------------
+	menu->addMenuItem({ "Color", "Secondary", "Red" });
+	menu->connectMenuItem({ "Color", "Secondary", "Red" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Red); });
+	menu->addMenuItem({ "Color", "Secondary", "Green" });
+	menu->connectMenuItem({ "Color", "Secondary", "Green" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Green); });
+	menu->addMenuItem({ "Color", "Secondary", "Blue" });
+	menu->connectMenuItem({ "Color", "Secondary", "Blue" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Blue); });
+	menu->addMenuItem({ "Color", "Secondary", "White" });
+	menu->connectMenuItem({ "Color", "Secondary", "White" }, [&, CTR] { CTR->setOutlineColor(sf::Color::White); });
+	menu->addMenuItem({ "Color", "Secondary", "Black" });
+	menu->connectMenuItem({ "Color", "Secondary", "Black" }, [&, CTR] { CTR->setOutlineColor(sf::Color::Black); });
+
+	// --------------------------------------------OUTLINE SECTION-------------------------------------------------
+	menu->addMenuItem({ "Outline", "0" });
+	menu->connectMenuItem({ "Outline", "0" }, [&, CTR] { CTR->setOutlineSize(0); });
+	menu->addMenuItem({ "Outline", "3" });
+	menu->connectMenuItem({ "Outline", "3" }, [&, CTR] { CTR->setOutlineSize(3); });
+	menu->addMenuItem({ "Outline", "6" });
+	menu->connectMenuItem({ "Outline", "6" }, [&, CTR] { CTR->setOutlineSize(6); });
+	menu->addMenuItem({ "Outline", "9" });
+	menu->connectMenuItem({ "Outline", "9" }, [&, CTR] { CTR->setOutlineSize(9); });
+
+	// --------------------------------------------TEXTURE SECTION--------------------------------------------------
+	menu->addMenuItem({ "Texture", "-" });
+	menu->connectMenuItem({ "Texture", "-" }, [&, CTR] { CTR->clearTexture(); });
+	menu->addMenuItem({ "Texture", "Style 1" });
+	menu->connectMenuItem({ "Texture", "Style 1" }, [&, CTR] {CTR->setTexture("../assets/textures/grunge-style.png"); });
+	menu->addMenuItem({ "Texture", "Style 2" });
+	menu->connectMenuItem({ "Texture", "Style 2" }, [&, CTR] { CTR->setTexture("../assets/textures/watercolor.png"); });
+
 }

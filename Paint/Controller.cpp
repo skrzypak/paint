@@ -1,9 +1,9 @@
 #include "Controller.h"
 
-Controller::Controller(): __shape(new Controller::Type<CApp::Rectangle>), __properites(new ShapeProperities)
+Controller::Controller(): __shape(new Controller::Type<CApp::Custom>), __properites(new ShapeProperities)
 {
 #ifdef DEBUG
-	std::cout << "Controller::Controller(): __shape(new Controller::Type<CApp::Rectangle>), __properites(new Controller::ShapeProperities)" << std::endl;
+	std::cout << "Controller::Controller(): __shape(new Controller::Type<CApp::Custom>), __properites(new Controller::ShapeProperities)" << std::endl;
 #endif 
 };
 
