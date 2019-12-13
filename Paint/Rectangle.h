@@ -7,7 +7,8 @@ namespace CApp
 		public Shape,
 		protected sf::RectangleShape
 	{
-		sf::RectangleShape* __rectangle;
+	protected:
+		sf::RectangleShape* _rectangle;
 
 	public:
 		Rectangle() = delete;

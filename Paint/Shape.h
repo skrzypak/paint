@@ -11,6 +11,7 @@ namespace CApp
 	class Shape: protected sf::Shape
 	{
 	protected:
+		static const float _PI;
 		sf::Vector2i _startXY;
 		sf::Texture* _texture;
 	public:

@@ -1,5 +1,7 @@
 #include "Shape.h"
 
+const float CApp::Shape::_PI = 3.141592654f;
+
 CApp::Shape::Shape(): _texture(new sf::Texture)
 {
 #ifdef _DEBUG

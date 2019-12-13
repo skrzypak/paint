@@ -32,8 +32,7 @@ sf::Vector2f CApp::Polygons::getPoint(std::size_t index) const
 #ifdef _DEBUG
     std::cout << "sf::Vector2f CApp::Polygons::getPoint(std::size_t index) const" << std::endl;
 #endif
-    static const float pi = 3.141592654f;
-    float angle = index * 2 * pi / getPointCount() - pi / 2;
+    float angle = index * 2 * _PI / getPointCount() - _PI / 2;
     float x = std::cos(angle) * (*__radius).x;
     float y = std::sin(angle) * (*__radius).y;
     return sf::Vector2f((*__radius).x + x, (*__radius).y + y);
