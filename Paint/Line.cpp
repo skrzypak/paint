@@ -1,12 +1,4 @@
 #include "Line.h"
-#include <cmath>
-
-Shapes::Line::~Line()
-{
-#ifdef _DEBUG
-	std::cout << "CApp::Line::~Line()" << std::endl;
-#endif
-}
 
 Shapes::Line::Line(const sf::Vector2i& s): Shapes::Rectangle(s)
 {

@@ -1,7 +1,6 @@
 #pragma once
 #include "Shape.h"
 #include <TGUI/TGUI.hpp>
-#include <vector>
 
 #ifdef _DEBUG
 #include <iostream>

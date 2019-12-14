@@ -3,9 +3,7 @@
 
 namespace Shapes
 {
-	class Rectangle: 
-		public Shape,
-		protected sf::RectangleShape
+	class Rectangle: public Shape, protected sf::RectangleShape
 	{
 	protected:
 		sf::RectangleShape* _rectangle;

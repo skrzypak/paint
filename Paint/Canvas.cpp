@@ -14,8 +14,11 @@ Canvas::~Canvas()
 #endif
 	for (auto& el : __vecOfShapes)
 	{
-		delete el;
-		el = nullptr;
+		if (el != nullptr)
+		{
+			delete el;
+			el = nullptr;
+		}
 	}
 }
 

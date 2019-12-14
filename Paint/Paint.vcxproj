@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Convex.cpp" />
     <ClCompile Include="Pencil.cpp" />
     <ClCompile Include="Trapeze.cpp" />
     <ClCompile Include="Diamond.cpp" />
@@ -147,11 +148,14 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Convex.h" />
     <ClInclude Include="Pencil.h" />
+    <ClInclude Include="ShapesHeader.h" />
     <ClInclude Include="Trapeze.h" />
     <ClInclude Include="Diamond.h" />
     <ClInclude Include="Ellipse.h" />
@@ -163,6 +167,7 @@
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeProperities.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

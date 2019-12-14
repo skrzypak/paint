@@ -1,16 +1,8 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <TGUI/TGUI.hpp>
 #include <cstring>
-#include "Rectangle.h"
-#include "Ellipse.h"
-#include "Hexagon.h"
-#include "Triangle.h"
-#include "Trapeze.h"
-#include "Diamond.h"
-#include "Pentagon.h"
-#include "Pencil.h"
-#include "Line.h"
 #include "Controller.h"
+#include "ShapesHeader.h"
 
 #ifdef _DEBUG
 #include <vld.h>
@@ -115,9 +107,9 @@ void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 	menu->addMenuItem({ "Geometric", "Texture", "-" });
 	menu->connectMenuItem({ "Geometric", "Texture", "-" }, [&, CTR] { CTR->clearTexture(); });
 	menu->addMenuItem({ "Geometric", "Texture", "Style 1" });
-	menu->connectMenuItem({ "Geometric", "Texture", "Style 1" }, [&, CTR] {CTR->setTexture("../assets/textures/style-1.jpg"); });
+	menu->connectMenuItem({ "Geometric", "Texture", "Style 1" }, [&, CTR] {CTR->setTexture("../assets/textures/style-1.png"); });
 	menu->addMenuItem({ "Geometric", "Texture", "Style 2" });
-	menu->connectMenuItem({ "Geometric", "Texture", "Style 2" }, [&, CTR] { CTR->setTexture("../assets/textures/style-2.jpg"); });
+	menu->connectMenuItem({ "Geometric", "Texture", "Style 2" }, [&, CTR] { CTR->setTexture("../assets/textures/style-2.png"); });
 
 	// --------------------------------------------COLOR PRIMARY SECTION-------------------------------------------------
 	menu->addMenuItem({ "Color", "Primary", "Red" });
@@ -146,12 +138,9 @@ void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 	// --------------------------------------------UTILITY SECTION------------------------------------------
 	menu->addMenuItem({ "Utility", "Pencil" });
 	menu->connectMenuItem("Utility", "Pencil", [&, CTR] { CTR->setShape<Shapes::Pencil>(); });
-	menu->addMenuItem({ "Utility", "Rubber" });
-	menu->connectMenuItem("Utility", "Rubber", [&, CTR] {});
 	menu->addMenuItem({ "Utility", "Clear" });
 	menu->connectMenuItem("Utility", "Clear", [&, CTR] { CTR->resetCanvas(); });
 
 	menu->setMenuItemEnabled({ "File", "Load" }, false);
 	menu->setMenuItemEnabled({ "File", "Save" }, false);
-	menu->setMenuItemEnabled({ "Utility", "Rubber" }, false);
 }

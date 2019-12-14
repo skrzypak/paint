@@ -1,11 +1,9 @@
 #include "Rectangle.h"
 
-Shapes::Rectangle::Rectangle(const sf::Vector2i& s): 
-	_rectangle(new sf::RectangleShape),
-	Shapes::Shape()
+Shapes::Rectangle::Rectangle(const sf::Vector2i& s): _rectangle(new sf::RectangleShape), Shapes::Shape()
 {
 #ifdef _DEBUG
-	std::cout << "CApp::Rectangle::Rectangle(const sf::Vector2i& s): __rectangle(new sf::RectangleShape)" << std::endl;
+	std::cout << "CApp::Rectangle::Rectangle(const sf::Vector2i& s): __rectangle(new sf::RectangleShape), shapes::Shape()" << std::endl;
 #endif
 	_originPixel = s;
 	_rectangle->setPosition(sf::Vector2f(_originPixel));
@@ -16,8 +14,11 @@ Shapes::Rectangle::~Rectangle()
 #ifdef _DEBUG
 	std::cout << "CApp::Rectangle::~Rectangle()" << std::endl;
 #endif
-	delete 	_rectangle;
-	_rectangle = nullptr;
+	if (_rectangle != nullptr)
+	{
+		delete 	_rectangle;
+		_rectangle = nullptr;
+	}
 }
 
 void Shapes::Rectangle::draw(sf::RenderWindow* w) const
