@@ -1,7 +1,7 @@
 #pragma once
 #include "Polygons.h"
 
-namespace CApp
+namespace Shapes
 {
     class Diamond: public Polygons
     {

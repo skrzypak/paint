@@ -1,9 +1,9 @@
 #include "Controller.h"
 
-Controller::Controller(): __shape(new Controller::Type<CApp::Custom>), __properites(new ShapeProperities)
+Controller::Controller(): __activeShape(new Controller::Type<Shapes::Pencil>), __activeProperites(new ShapeProperities), __canvas(new Canvas)
 {
 #ifdef DEBUG
-	std::cout << "Controller::Controller(): __shape(new Controller::Type<CApp::Custom>), __properites(new Controller::ShapeProperities)" << std::endl;
+	std::cout << "Controller::Controller(): __shape(new Controller::Type<CApp::Custom>), __properites(new Controller::ShapeProperities), __canvas(new Canvas)" << std::endl;
 #endif 
 };
 
@@ -12,10 +12,12 @@ Controller::~Controller()
 #ifdef DEBUG
 	std::cout << "Controller::~Controller()" << std::endl;
 #endif 
-	delete __shape;
-	delete __properites;
-	__shape = nullptr;
-	__properites = nullptr;
+	delete __activeShape;
+	delete __activeProperites;
+	delete __canvas;
+	__activeShape = nullptr;
+	__activeProperites = nullptr;
+	__canvas = nullptr;
 };
 
 Controller::Shape* Controller::getShapeController()
@@ -23,23 +25,31 @@ Controller::Shape* Controller::getShapeController()
 #ifdef DEBUG
 	std::cout << "Controller::Shape* Controller::getShapeController() " << std::endl;
 #endif 
-	return __shape;
+	return __activeShape;
 };
 
-ShapeProperities* Controller::getProperites()
+ShapeProperities* Controller::getShapeProperites()
 {
 #ifdef DEBUG
-	std::cout << "Controller::Color Controller::getProperites()" << std::endl;
+	std::cout << "Controller::Color Controller::getShapeProperites()" << std::endl;
 #endif 
-	return __properites;
-};
+	return __activeProperites;
+}
+
+Canvas* Controller::getActiveCanvas()
+{
+#ifdef DEBUG
+	std::cout << "Canvas* Controller::getActiveCanvas()" << std::endl;
+#endif 
+	return __canvas;
+}
 
 void Controller::setFillColor(sf::Color c)
 {
 #ifdef DEBUG
 	std::cout << "void Controller::setFillColor(sf::Color c)" << std::endl;
 #endif 
-	__properites->fillColor = c;
+	__activeProperites->fillColor = c;
 };
 
 void Controller::setOutlineColor(sf::Color c)
@@ -47,7 +57,7 @@ void Controller::setOutlineColor(sf::Color c)
 #ifdef DEBUG
 	std::cout << "void Controller::setOutlineColor(sf::Color c)" << std::endl;
 #endif
-	__properites->outlineColor = c;
+	__activeProperites->outlineColor = c;
 }
 
 void Controller::setOutlineSize(float s)
@@ -55,7 +65,7 @@ void Controller::setOutlineSize(float s)
 #ifdef DEBUG
 	std::cout << "void Controller::setOutlineSize(float s)" << std::endl;
 #endif
-	__properites->outlineSize = s;
+	__activeProperites->outlineSize = s;
 }
 
 void Controller::reverseColors()
@@ -63,9 +73,9 @@ void Controller::reverseColors()
 #ifdef DEBUG
 	std::cout << "void Controller::reverseColors()" << std::endl;
 #endif
-	auto tmp = __properites->fillColor;
-	__properites->fillColor = __properites->outlineColor;
-	__properites->outlineColor = tmp;
+	auto tmp = __activeProperites->fillColor;
+	__activeProperites->fillColor = __activeProperites->outlineColor;
+	__activeProperites->outlineColor = tmp;
 }
 
 void Controller::setTexture(std::string path)
@@ -73,8 +83,8 @@ void Controller::setTexture(std::string path)
 #ifdef DEBUG
 	std::<< "void Controller::setTexture(std::string path)" << std::endl;
 #endif
-	__properites->texture->loadFromFile(path);
-	__properites->texture->setSmooth(true);
+	__activeProperites->texture->loadFromFile(path);
+	__activeProperites->texture->setSmooth(true);
 }
 
 void Controller::clearTexture()
@@ -82,6 +92,23 @@ void Controller::clearTexture()
 #ifdef DEBUG
 	std:: << "void Controller::clearTexture()" << std::endl;
 #endif
-	delete __properites->texture;
-	__properites->texture = new sf::Texture;
+	delete __activeProperites->texture;
+	__activeProperites->texture = new sf::Texture;
+}
+
+void Controller::refreshView(sf::RenderWindow* w, tgui::Gui* g, sf::Color c)
+{
+#ifdef DEBUG
+	std:: << "void Controller::refreshView(sf::RenderWindow* w, tgui::Gui* g, sf::Color c)" << std::endl;
+#endif
+	__canvas->refresh(w, g, c);
+}
+
+void Controller::resetCanvas()
+{
+#ifdef DEBUG
+	std:: << "void Controller::resetCanvas()" << std::endl;
+#endif
+	delete __canvas;
+	__canvas = new Canvas;
 }

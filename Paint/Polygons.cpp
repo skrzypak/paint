@@ -1,16 +1,16 @@
 #include "Polygons.h"
 
-CApp::Polygons::Polygons(unsigned int p) :
+Shapes::Polygons::Polygons(unsigned int p) :
     __radius(new sf::Vector2f(0.f, 0.f)),
     __pointCount(p),
-    CApp::Shape()
+    Shapes::Shape()
 {
 #ifdef _DEBUG
     std::cout << "CApp::Polygons::Polygons(unsigned int p): __radius(new sf::Vector2f(0.f, 0.f)), __pointCount(p)" << std::endl;
 #endif
 }
 
-CApp::Polygons::~Polygons()
+Shapes::Polygons::~Polygons()
 {
 #ifdef _DEBUG
     std::cout << "CApp::Polygons::~Polygons()" << std::endl;
@@ -19,7 +19,7 @@ CApp::Polygons::~Polygons()
     __radius = nullptr;
 }
 
-std::size_t CApp::Polygons::getPointCount() const
+std::size_t Shapes::Polygons::getPointCount() const
 {
 #ifdef _DEBUG
     std::cout << "std::size_t CApp::Polygons::getPointCount() const" << std::endl;
@@ -27,7 +27,7 @@ std::size_t CApp::Polygons::getPointCount() const
     return __pointCount;
 }
 
-sf::Vector2f CApp::Polygons::getPoint(std::size_t index) const
+sf::Vector2f Shapes::Polygons::getPoint(std::size_t index) const
 {
 #ifdef _DEBUG
     std::cout << "sf::Vector2f CApp::Polygons::getPoint(std::size_t index) const" << std::endl;
@@ -38,7 +38,7 @@ sf::Vector2f CApp::Polygons::getPoint(std::size_t index) const
     return sf::Vector2f((*__radius).x + x, (*__radius).y + y);
 }
 
-void CApp::Polygons::draw(sf::RenderWindow* w) const
+void Shapes::Polygons::draw(sf::RenderWindow* w) const
 {
 #ifdef _DEBUG
     std::cout << "void CApp::Polygons::draw(sf::RenderWindow* w) const" << std::endl;
@@ -46,7 +46,7 @@ void CApp::Polygons::draw(sf::RenderWindow* w) const
     w->draw(*const_cast<Polygons*>(this));
 }
 
-sf::Vector2f* CApp::Polygons::getRadius() const
+sf::Vector2f* Shapes::Polygons::getRadius() const
 {
 #ifdef _DEBUG
     std::cout << "sf::Vector2f* CApp::Polygons::getRadius() const" << std::endl;
@@ -54,7 +54,7 @@ sf::Vector2f* CApp::Polygons::getRadius() const
     return __radius;
 }
 
-void CApp::Polygons::setRadius(const sf::Vector2f& r)
+void Shapes::Polygons::setRadius(const sf::Vector2f& r)
 {
 #ifdef _DEBUG
     std::cout << "void CApp::Polygons::setRadius(const sf::Vector2f& r)" << std::endl;
@@ -62,12 +62,12 @@ void CApp::Polygons::setRadius(const sf::Vector2f& r)
     *__radius = r;
 }
 
-void CApp::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)
+void Shapes::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)
 {
 #ifdef _DEBUG
     std::cout << "void CApp::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
-    setRadius(sf::Vector2f(static_cast<float>((curr.x - _startXY.x) / 2), static_cast<float>((curr.y - _startXY.y) / 2)));
+    setRadius(sf::Vector2f(static_cast<float>((curr.x - _originPixel.x) / 2), static_cast<float>((curr.y - _originPixel.y) / 2)));
     sf::Shape::setFillColor(p->fillColor);
     sf::Shape::setOutlineColor(p->outlineColor);
     sf::Shape::setOutlineThickness(p->outlineSize);

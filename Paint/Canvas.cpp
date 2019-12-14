@@ -1,40 +1,40 @@
 #include "Canvas.h"
 
-CApp::Canvas::Canvas()
+Canvas::Canvas()
 {
 #ifdef _DEBUG
-	std::cout << "CApp::Canvas::Canvas()" << std::endl;
+	std::cout << "Canvas::Canvas()" << std::endl;
 #endif
 }
 
-CApp::Canvas::~Canvas()
+Canvas::~Canvas()
 {
 #ifdef _DEBUG
-	std::cout << "CApp::Canvas::~Canvas()" << std::endl;
+	std::cout << "Canvas::~Canvas()" << std::endl;
 #endif
-	for (auto& el : __vecShapes)
+	for (auto& el : __vecOfShapes)
 	{
 		delete el;
 		el = nullptr;
 	}
 }
 
-CApp::Shape* CApp::Canvas::generateShape(Shape* s)
+Shapes::Shape* Canvas::generateShape(Shapes::Shape* s)
 {
 #ifdef _DEBUG
-	std::cout << "CApp::Shape* CApp::Canvas::generateShape(Shape* s)" << std::endl;
+	std::cout << "Shape* Canvas::generateShape(Shape* s)" << std::endl;
 #endif
-	__vecShapes.push_back(s);
+	__vecOfShapes.push_back(s);
 	return s;
 }
 
-void CApp::Canvas::refresh(sf::RenderWindow* w, tgui::Gui* g, sf::Color c)
+void Canvas::refresh(sf::RenderWindow* w, tgui::Gui* g, sf::Color c)
 {
 #ifdef _DEBUG
-	std::cout << "void CApp::Canvas::refresh(sf::RenderWindow* w,  tgui::Gui* g, sf::Color c)" << std::endl;
+	std::cout << "void Canvas::refresh(sf::RenderWindow* w,  tgui::Gui* g, sf::Color c)" << std::endl;
 #endif
 	w->clear(c);
-	for (const auto& s : __vecShapes) s->draw(w);
+	for (const auto& s : __vecOfShapes) s->draw(w);
 	g->draw();
 	w->display();
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Canvas.h"
 #include "Shape.h"
-#include "Custom.h"
+#include "Pencil.h"
 #include "ShapeProperities.h"
 #include <SFML/Graphics.hpp>
 
@@ -14,41 +14,45 @@ class Controller
 	class Shape
 	{
 	public:
-		virtual CApp::Shape* generate(CApp::Canvas*, const sf::Vector2i&) const = 0;
+		virtual Shapes::Shape* generate(Canvas*, const sf::Vector2i&) const = 0;
 	};
 
 	template <class SHAPE>
 	class Type: public Shape
 	{
-		virtual CApp::Shape* generate(CApp::Canvas* c, const sf::Vector2i& v) const override;
+		virtual Shapes::Shape* generate(Canvas* c, const sf::Vector2i& v) const override;
 	};
 
-	Controller::Shape* __shape;
-	ShapeProperities* __properites;
+	Controller::Shape* __activeShape;
+	ShapeProperities* __activeProperites;
+	Canvas* __canvas;
 
 public:
 	Controller();
 	~Controller();
-	template <class SHAPE> void setShape();
 	Controller::Shape* getShapeController();
-	ShapeProperities* getProperites();
+	ShapeProperities* getShapeProperites();
+	Canvas* getActiveCanvas();
+	template <class SHAPE> void setShape();
 	void setFillColor(sf::Color);
 	void setOutlineColor(sf::Color);
 	void setOutlineSize(float);
 	void reverseColors();
 	void setTexture(std::string = "");
 	void clearTexture();
+	void refreshView(sf::RenderWindow*, tgui::Gui*, sf::Color = sf::Color::Black);
+	void resetCanvas();
 };
 
 template<class SHAPE>
 inline void Controller::setShape()
 {
-	delete __shape;
-	__shape = new Controller::Type<SHAPE>;
+	delete __activeShape;
+	__activeShape = new Controller::Type<SHAPE>;
 };
 
 template<class SHAPE>
-inline CApp::Shape* Controller::Type<SHAPE>::generate(CApp::Canvas* c, const sf::Vector2i& v) const
+inline Shapes::Shape* Controller::Type<SHAPE>::generate(Canvas* c, const sf::Vector2i& v) const
 {
 	return c->generateShape(new SHAPE(v));
 };

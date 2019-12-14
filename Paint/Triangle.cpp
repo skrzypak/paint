@@ -1,15 +1,15 @@
 #include "Triangle.h"
 
-CApp::Triangle::Triangle(const sf::Vector2i& s) : __convex(new sf::ConvexShape), CApp::Shape()
+Shapes::Triangle::Triangle(const sf::Vector2i& s) : __convex(new sf::ConvexShape), Shapes::Shape()
 {
 #ifdef _DEBUG
     std::cout << "CApp::Triangle::Triangle(const sf::Vector2i& s): __radius(new sf::Vector2f(0.f, 0.f)), CApp::Shape()" << std::endl;
 #endif
-    _startXY = s;
+    _originPixel = s;
     __convex->setPointCount(3);
 }
 
-CApp::Triangle::~Triangle()
+Shapes::Triangle::~Triangle()
 {
 #ifdef _DEBUG
     std::cout << "CApp::Triangle::~Trapeze()" << std::endl;
@@ -18,23 +18,7 @@ CApp::Triangle::~Triangle()
     __convex = nullptr;
 }
 
-std::size_t CApp::Triangle::getPointCount() const
-{
-#ifdef _DEBUG
-    std::cout << "std::size_t CApp::Triangle::getPointCount() const" << std::endl;
-#endif
-    return 3;
-}
-
-sf::Vector2f CApp::Triangle::getPoint(std::size_t index) const
-{
-#ifdef _DEBUG
-    std::cout << "sf::Vector2f CApp::Triangle::getPoint(std::size_t index) const" << std::endl;
-#endif
-    return __convex->getPoint(index);
-}
-
-void CApp::Triangle::draw(sf::RenderWindow* w) const
+void Shapes::Triangle::draw(sf::RenderWindow* w) const
 {
 #ifdef _DEBUG
     std::cout << "void CApp::Trapeze::draw(sf::RenderWindow* w) const" << std::endl;
@@ -42,7 +26,7 @@ void CApp::Triangle::draw(sf::RenderWindow* w) const
     w->draw(*__convex);
 }
 
-void CApp::Triangle::update(const sf::Vector2i& curr, ShapeProperities* p)
+void Shapes::Triangle::update(const sf::Vector2i& curr, ShapeProperities* p)
 {
 #ifdef _DEBUG
     std::cout << "void CApp::Trapeze::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
@@ -54,9 +38,9 @@ void CApp::Triangle::update(const sf::Vector2i& curr, ShapeProperities* p)
     __convex->setTexture(_texture);
 
     
-    auto len = (curr.x - _startXY.x) / 2;
-    __convex->setPoint(0, sf::Vector2f(static_cast<float>(_startXY.x), static_cast<float>(curr.y)));
-    __convex->setPoint(1, sf::Vector2f(static_cast<float>(_startXY.x + len), static_cast<float>(_startXY.y)));
+    auto len = (curr.x - _originPixel.x) / 2;
+    __convex->setPoint(0, sf::Vector2f(static_cast<float>(_originPixel.x), static_cast<float>(curr.y)));
+    __convex->setPoint(1, sf::Vector2f(static_cast<float>(_originPixel.x + len), static_cast<float>(_originPixel.y)));
     __convex->setPoint(2, sf::Vector2f(static_cast<float>(curr.x), static_cast<float>(curr.y)));
   
 }

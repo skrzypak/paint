@@ -3,13 +3,13 @@
 
 namespace Shapes
 {
-    class Trapeze: public Shape
+    class Pencil: public Shape
     {
-        sf::ConvexShape* __convex;
+        sf::VertexArray* __vecOfPixels;
     public:
-        Trapeze() = delete;
-        explicit Trapeze(const sf::Vector2i&);
-        ~Trapeze();
+        Pencil() = delete;
+        explicit Pencil(const sf::Vector2i&);
+        ~Pencil();
        
         virtual void update(const sf::Vector2i&, ShapeProperities*) override;
         virtual void draw(sf::RenderWindow*) const override;

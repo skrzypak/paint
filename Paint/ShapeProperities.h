@@ -1,8 +1,7 @@
 #pragma once
 
-class ShapeProperities
+struct ShapeProperities
 {
-public:
 	sf::Color fillColor;
 	sf::Color outlineColor;
 	sf::Texture* texture;

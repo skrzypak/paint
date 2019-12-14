@@ -1,14 +1,14 @@
 #pragma once
 #include "Rectangle.h"
 
-namespace CApp
+namespace Shapes
 {
 	class Line: public Rectangle
 	{
 	public:
 		Line() = delete;
-		~Line();
 		explicit Line(const sf::Vector2i&);
+		~Line();
 
 		virtual void update(const sf::Vector2i&, ShapeProperities*) override;
 	};

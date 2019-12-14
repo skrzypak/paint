@@ -1,15 +1,15 @@
 #include "Shape.h"
 
-const float CApp::Shape::_PI = 3.141592654f;
+const float Shapes::Shape::_PI = 3.141592654f;
 
-CApp::Shape::Shape(): _texture(new sf::Texture)
+Shapes::Shape::Shape(): _texture(new sf::Texture)
 {
 #ifdef _DEBUG
 	std::cout << "CApp::Shape::Shape(): _texture(new sf::Texture)" << std::endl;
 #endif
 }
 
-CApp::Shape::~Shape()
+Shapes::Shape::~Shape()
 {
 #ifdef _DEBUG
 	std::cout << "CApp::Shape::~Shape()" << std::endl;

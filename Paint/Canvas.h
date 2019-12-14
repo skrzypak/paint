@@ -7,21 +7,13 @@
 #include <iostream>
 #endif
 
-class Shape;
-
-namespace CApp
+class Canvas
 {
-	class Canvas
-	{
-		std::vector<Shape*> __vecShapes;
-	public:
-		Canvas();
-		~Canvas();
+	std::vector<Shapes::Shape*> __vecOfShapes;
+public:
+	Canvas();
+	~Canvas();
 
-		// Polymorphism
-		void refresh(sf::RenderWindow*, tgui::Gui*, sf::Color = sf::Color::Black);
-		Shape* generateShape(Shape*);
-	};
-}
-
-
+	Shapes::Shape* generateShape(Shapes::Shape*);
+	void refresh(sf::RenderWindow*, tgui::Gui*, sf::Color = sf::Color::Black);
+};
