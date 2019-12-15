@@ -1,8 +1,8 @@
 #pragma once
 #include "Canvas.h"
-#include "Shape.h"
-#include "Pencil.h"
+#include "ShapesHeader.h"
 #include "ShapeProperities.h"
+#include "AppSettings.h"
 #include <SFML/Graphics.hpp>
 
 #ifdef DEBUG
@@ -40,8 +40,10 @@ public:
 	void reverseColors();
 	void setTexture(std::string = "");
 	void clearTexture();
-	void refreshView(sf::RenderWindow*, tgui::Gui*, sf::Color = sf::Color::Black);
+	void refreshView(sf::RenderWindow*, tgui::Gui*, sf::Color = DEFAULT_CANVAS_COLOR);
 	void resetCanvas();
+	void saveToFile();
+	void loadFromFile();
 };
 
 template<class SHAPE>

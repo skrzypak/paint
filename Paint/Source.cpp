@@ -3,6 +3,7 @@
 #include <cstring>
 #include "Controller.h"
 #include "ShapesHeader.h"
+#include "AppSettings.h"
 
 #ifdef _DEBUG
 #include <vld.h>
@@ -14,7 +15,7 @@ int main()
 {
 	sf::Image icon;
 	if (!icon.loadFromFile("../assets/icon.png")) return EXIT_FAILURE;
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(500, 500), "PAINT PK3", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE, sf::Style::Titlebar | sf::Style::Close);
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	tgui::Gui* gui = new tgui::Gui{ *window };
 	
@@ -35,7 +36,6 @@ int main()
 		{
 			if (gui->handleEvent(event) ==  1) CTR->refreshView(window, gui);
 			if (event.type) window->clear(sf::Color::Black);
-			if(event.type == sf::Event::Closed) window->close();
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				auto shape = CTR->getShapeController()->generate(CTR->getActiveCanvas(), sf::Mouse::getPosition(*window));
@@ -54,6 +54,7 @@ int main()
 				}
 				CTR->reverseColors();
 			}
+			if (event.type == sf::Event::Closed) window->close();
 		}
 	}
 
@@ -71,9 +72,9 @@ void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 {
 	// --------------------------------------------FILE SECTION----------------------------------------------------------
 	menu->addMenuItem({ "File", "Load" });
-	menu->connectMenuItem({ "File", "Load" }, [&, CTR] {});
+	menu->connectMenuItem({ "File", "Load" }, [&, CTR] { CTR->loadFromFile(); });
 	menu->addMenuItem({ "File", "Save" });
-	menu->connectMenuItem({ "File", "Save" }, [&, CTR] {});
+	menu->connectMenuItem({ "File", "Save" }, [&, CTR] { CTR->saveToFile(); });
 
 	// --------------------------------------------GEOMETRIC SECTION-----------------------------------------------------
 	menu->addMenuItem({ "Geometric", "Shape", "Line" });
@@ -142,5 +143,4 @@ void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 	menu->connectMenuItem("Utility", "Clear", [&, CTR] { CTR->resetCanvas(); });
 
 	menu->setMenuItemEnabled({ "File", "Load" }, false);
-	menu->setMenuItemEnabled({ "File", "Save" }, false);
 }

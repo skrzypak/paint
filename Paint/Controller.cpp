@@ -1,9 +1,9 @@
 #include "Controller.h"
 
-Controller::Controller(): __activeShape(new Controller::Type<Shapes::Pencil>), __activeProperites(new ShapeProperities), __canvas(new Canvas)
+Controller::Controller(): __activeShape(new Controller::Type<DEFAULT_MODE>), __activeProperites(new ShapeProperities), __canvas(new Canvas)
 {
 #ifdef DEBUG
-	std::cout << "Controller::Controller(): __shape(new Controller::Type<CApp::Custom>), __properites(new Controller::ShapeProperities), __canvas(new Canvas)" << std::endl;
+	std::cout << "Controller::Controller(): __shape(new Controller::Type<DEFAULT_MODE>), __properites(new Controller::ShapeProperities), __canvas(new Canvas)" << std::endl;
 #endif 
 };
 
@@ -111,4 +111,20 @@ void Controller::resetCanvas()
 #endif
 	delete __canvas;
 	__canvas = new Canvas;
+}
+
+void Controller::saveToFile()
+{
+#ifdef DEBUG
+	std:: << "void Controller::saveToFile()" << std::endl;
+#endif
+	// TO DO
+}
+
+void Controller::loadFromFile()
+{
+#ifdef DEBUG
+	std:: << "void Controller::loadFromFile()" << std::endl;
+#endif
+	// TO DO
 }

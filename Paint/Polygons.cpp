@@ -65,7 +65,7 @@ void Shapes::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)
 #ifdef _DEBUG
     std::cout << "void CApp::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
-    setRadius(sf::Vector2f(static_cast<float>((curr.x - _originPixel.x) / 2), static_cast<float>((curr.y - _originPixel.y) / 2)));
+    setRadius(sf::Vector2f(static_cast<float>((curr.x - _originPixel.x - p->outlineSize) / 2), static_cast<float>((curr.y - _originPixel.y - p->outlineSize) / 2)));
     sf::Shape::setFillColor(p->fillColor);
     sf::Shape::setOutlineColor(p->outlineColor);
     sf::Shape::setOutlineThickness(p->outlineSize);

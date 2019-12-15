@@ -34,7 +34,7 @@ void Shapes::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)
 #ifdef _DEBUG
 	std::cout << "void CApp::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
-	_rectangle->setSize(sf::Vector2f(static_cast<float>(curr.x - _originPixel.x), static_cast<float>(curr.y - _originPixel.y)));
+	_rectangle->setSize(sf::Vector2f(static_cast<float>(curr.x - _originPixel.x - p->outlineSize), static_cast<float>(curr.y - _originPixel.y - p->outlineSize)));
 	_rectangle->setFillColor(p->fillColor);
 	_rectangle->setOutlineColor(p->outlineColor);
 	_rectangle->setOutlineThickness(p->outlineSize);

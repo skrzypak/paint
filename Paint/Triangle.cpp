@@ -21,8 +21,8 @@ void Shapes::Triangle::update(const sf::Vector2i& curr, ShapeProperities* p)
     _convex->setTexture(_texture);
 
     auto len = (curr.x - _originPixel.x) / 2;
-    _convex->setPoint(0, sf::Vector2f(static_cast<float>(_originPixel.x), static_cast<float>(curr.y)));
-    _convex->setPoint(1, sf::Vector2f(static_cast<float>(_originPixel.x + len), static_cast<float>(_originPixel.y)));
-    _convex->setPoint(2, sf::Vector2f(static_cast<float>(curr.x), static_cast<float>(curr.y)));
+    _convex->setPoint(0, sf::Vector2f(static_cast<float>(_originPixel.x - p->outlineSize), static_cast<float>(curr.y - p->outlineSize)));
+    _convex->setPoint(1, sf::Vector2f(static_cast<float>(_originPixel.x + len - p->outlineSize), static_cast<float>(_originPixel.y - p->outlineSize)));
+    _convex->setPoint(2, sf::Vector2f(static_cast<float>(curr.x - p->outlineSize), static_cast<float>(curr.y - p->outlineSize)));
   
 }

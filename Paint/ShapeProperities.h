@@ -1,4 +1,5 @@
 #pragma once
+#include "AppSettings.h"
 
 struct ShapeProperities
 {
@@ -7,10 +8,10 @@ struct ShapeProperities
 	sf::Texture* texture;
 	float outlineSize;
 
-	ShapeProperities() : fillColor(sf::Color::White), outlineColor(sf::Color::Black), outlineSize(1), texture(new sf::Texture)
+	ShapeProperities() : fillColor(DEFAULT_FILL_COLOR), outlineColor(DEFAULT_OUTLINE_COLOR), outlineSize(DEFAULT_OUTLINE_SIZE), texture(new sf::Texture)
 	{
 #ifdef DEBUG
-		std::cout << "Controller::ShapeProperities::ShapeProperities(): fillColor(sf::Color::White), outlineColor(sf::Color::Black), outlineSize(1), texture(new sf::Texture)" << std::endl;
+		std::cout << "Controller::ShapeProperities::ShapeProperities(): fillColor(DEFAULT_FILL_COLOR), outlineColor(DEFAULT_OUTLINE_COLOR), outlineSize(DEFAULT_OUTLINE_SIZE), texture(new sf::Texture)" << std::endl;
 #endif 
 	};
 
