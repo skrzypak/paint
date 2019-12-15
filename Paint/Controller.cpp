@@ -2,7 +2,7 @@
 
 Controller::Controller(sf::RenderWindow* w, tgui::Gui* g): __activeShape(new Controller::Type<DEFAULT_MODE>), __activeProperites(new ShapeProperities), __canvas(new Canvas)
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "Controller::Controller(sf::RenderWindow* w,  tgui::Gui* g): __shape(new Controller::Type<DEFAULT_MODE>), __properites(new Controller::ShapeProperities), __canvas(new Canvas)" << std::endl;
 #endif 
 	__window = w;
@@ -11,7 +11,7 @@ Controller::Controller(sf::RenderWindow* w, tgui::Gui* g): __activeShape(new Con
 
 Controller::~Controller()
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "Controller::~Controller()" << std::endl;
 #endif 
 	delete __activeShape;
@@ -26,7 +26,7 @@ Controller::~Controller()
 
 Controller::Shape* Controller::getShapeController()
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "Controller::Shape* Controller::getShapeController() " << std::endl;
 #endif 
 	return __activeShape;
@@ -34,7 +34,7 @@ Controller::Shape* Controller::getShapeController()
 
 ShapeProperities* Controller::getShapeProperites()
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "Controller::Color Controller::getShapeProperites()" << std::endl;
 #endif 
 	return __activeProperites;
@@ -42,7 +42,7 @@ ShapeProperities* Controller::getShapeProperites()
 
 Canvas* Controller::getActiveCanvas()
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "Canvas* Controller::getActiveCanvas()" << std::endl;
 #endif 
 	return __canvas;
@@ -50,7 +50,7 @@ Canvas* Controller::getActiveCanvas()
 
 void Controller::setFillColor(sf::Color c)
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "void Controller::setFillColor(sf::Color c)" << std::endl;
 #endif 
 	__activeProperites->primaryColor = c;
@@ -58,7 +58,7 @@ void Controller::setFillColor(sf::Color c)
 
 void Controller::setOutlineColor(sf::Color c)
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "void Controller::setOutlineColor(sf::Color c)" << std::endl;
 #endif
 	__activeProperites->secondaryColor = c;
@@ -66,7 +66,7 @@ void Controller::setOutlineColor(sf::Color c)
 
 void Controller::setOutlineSize(float s)
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "void Controller::setOutlineSize(float s)" << std::endl;
 #endif
 	__activeProperites->outlineSize = s;
@@ -74,7 +74,7 @@ void Controller::setOutlineSize(float s)
 
 void Controller::reverseColors()
 {
-#ifdef DEBUG
+#ifdef _DEBUG
 	std::cout << "void Controller::reverseColors()" << std::endl;
 #endif
 	auto tmp = __activeProperites->primaryColor;
@@ -84,8 +84,8 @@ void Controller::reverseColors()
 
 void Controller::setTexture(std::string path)
 {
-#ifdef DEBUG
-	std::<< "void Controller::setTexture(std::string path)" << std::endl;
+#ifdef _DEBUG
+	std::cout << "void Controller::setTexture(std::string path)" << std::endl;
 #endif
 	__activeProperites->texture->loadFromFile(path);
 	__activeProperites->texture->setSmooth(true);
@@ -93,8 +93,8 @@ void Controller::setTexture(std::string path)
 
 void Controller::clearTexture()
 {
-#ifdef DEBUG
-	std:: << "void Controller::clearTexture()" << std::endl;
+#ifdef _DEBUG
+	std::cout << "void Controller::clearTexture()" << std::endl;
 #endif
 	delete __activeProperites->texture;
 	__activeProperites->texture = new sf::Texture;
@@ -102,24 +102,24 @@ void Controller::clearTexture()
 
 void Controller::refreshView(sf::RenderWindow* w, tgui::Gui* g)
 {
-#ifdef DEBUG
-	std:: << "void Controller::refreshView(sf::RenderWindow* w, tgui::Gui* g)" << std::endl;
+#ifdef _DEBUG
+	std::cout << "void Controller::refreshView(sf::RenderWindow* w, tgui::Gui* g)" << std::endl;
 #endif
 	__canvas->refresh(w, g);
 }
 
 void Controller::refreshView()
 {
-#ifdef DEBUG
-	std:: << "void Controller::refreshView()" << std::endl;
+#ifdef _DEBUG
+	std::cout << "void Controller::refreshView()" << std::endl;
 #endif
 	__canvas->refresh(__window, __gui);
 }
 
 void Controller::resetCanvas()
 {
-#ifdef DEBUG
-	std:: << "void Controller::resetCanvas()" << std::endl;
+#ifdef _DEBUG
+	std::cout << "void Controller::resetCanvas()" << std::endl;
 #endif
 	delete __canvas;
 	__canvas = new Canvas;
@@ -127,16 +127,16 @@ void Controller::resetCanvas()
 
 void Controller::saveToFile(const std::string& e)
 {
-#ifdef DEBUG
-	std:: << "void Controller::saveToFile(const std::string& e)" << std::endl;
+#ifdef _DEBUG
+	std::cout << "void Controller::saveToFile(const std::string& e)" << std::endl;
 #endif
 	__canvas->saveToImage(__window, e);
 }
 
 void Controller::removeLastShape()
 {
-#ifdef DEBUG
-	std:: << "void Controller::removeLastShape()" << std::endl;
+#ifdef _DEBUG
+	std::cout << "void Controller::removeLastShape()" << std::endl;
 #endif
 	__canvas->removeLast();
 }

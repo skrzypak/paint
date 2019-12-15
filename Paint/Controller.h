@@ -5,7 +5,7 @@
 #include "AppSettings.h"
 #include <SFML/Graphics.hpp>
 
-#ifdef DEBUG
+#ifdef _DEBUG
 #include <iostream>
 #endif
 
@@ -53,6 +53,9 @@ public:
 template<class SHAPE>
 inline void Controller::setShape()
 {
+#ifdef _DEBUG
+	std::cout << "template<class SHAPE> inline void Controller::setShape()" << std::endl;
+#endif
 	delete __activeShape;
 	__activeShape = new Controller::Type<SHAPE>;
 };
@@ -60,5 +63,8 @@ inline void Controller::setShape()
 template<class SHAPE>
 inline Shapes::Shape* Controller::Type<SHAPE>::generate(Canvas* c, const sf::Vector2i& v) const
 {
+#ifdef _DEBUG
+	std::cout << "template<class SHAPE> inline Shapes::Shape * Controller::Type<SHAPE>::generate(Canvas * c, const sf::Vector2i & v) const" << std::endl;
+#endif
 	return c->generateShape(new SHAPE(v));
 };

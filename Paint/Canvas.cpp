@@ -80,11 +80,11 @@ void Canvas::removeLast()
 #ifdef _DEBUG
 	std::cout << "void Canvas::removeLast()" << std::endl;
 #endif
-	// TO DO
-
-	if (__vecOfShapes.size() > 0)
+	if (!__vecOfShapes.empty())
 	{
-		
+		auto el = __vecOfShapes.back();
+		delete el;
+		el = nullptr;
+		__vecOfShapes.pop_back();
 	}
-	
 }
