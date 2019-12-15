@@ -36,27 +36,19 @@ int main()
 		sf::Cursor cursor;
 		while (window->pollEvent(event))
 		{
+			auto mouseBtnLeftPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+			auto mouseBtnRightPressed = sf::Mouse::isButtonPressed(sf::Mouse::Right);
 			if (gui->handleEvent(event) ==  1) CTR->refreshView();
-			if (event.type) window->clear(sf::Color::Black);
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if ((mouseBtnLeftPressed || mouseBtnRightPressed) && menu->isFocused() == false)
 			{
+				if(mouseBtnRightPressed) CTR->reverseColors();
 				if (cursor.loadFromSystem(sf::Cursor::Cross)) window->setMouseCursor(cursor);
 				auto shape = CTR->getShapeController()->generate(CTR->getActiveCanvas(), sf::Mouse::getPosition(*window));
-				while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				while (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 					shape->update(sf::Mouse::getPosition(*window), CTR->getShapeProperites());
 					CTR->refreshView();
 				}
-			}
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-			{
-				if (cursor.loadFromSystem(sf::Cursor::Cross)) window->setMouseCursor(cursor);
-				CTR->reverseColors();
-				auto shape = CTR->getShapeController()->generate(CTR->getActiveCanvas(), sf::Mouse::getPosition(*window));
-				while (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-					shape->update(sf::Mouse::getPosition(*window), CTR->getShapeProperites());
-					CTR->refreshView();
-				}
-				CTR->reverseColors();
+				if (mouseBtnRightPressed) CTR->reverseColors();
 			}
 			if (event.type == sf::Event::Closed) window->close();
 			if (cursor.loadFromSystem(sf::Cursor::Arrow)) window->setMouseCursor(cursor);
