@@ -24,6 +24,14 @@ std::size_t Shapes::Polygons::getPointCount() const
     return __pointCount;
 }
 
+void* Shapes::Polygons::getDrawable() const
+{
+#ifdef _DEBUG
+    std::cout << "void* Shapes::Polygons::getDrawable() const" << std::endl;
+#endif
+    return const_cast<Polygons *>(this);
+}
+
 sf::Vector2f Shapes::Polygons::getPoint(std::size_t index) const
 {
 #ifdef _DEBUG
@@ -66,8 +74,8 @@ void Shapes::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)
     std::cout << "void Shapes::Polygons::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
     setRadius(sf::Vector2f(static_cast<float>((curr.x - _originPixel.x - p->outlineSize) / 2), static_cast<float>((curr.y - _originPixel.y - p->outlineSize) / 2)));
-    sf::Shape::setFillColor(p->fillColor);
-    sf::Shape::setOutlineColor(p->outlineColor);
+    sf::Shape::setFillColor(p->primaryColor);
+    sf::Shape::setOutlineColor(p->secondaryColor);
     sf::Shape::setOutlineThickness(p->outlineSize);
     *_texture = (*p->texture);
     sf::Shape::setTexture(_texture);

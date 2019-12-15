@@ -12,7 +12,7 @@ void Shapes::Line::update(const sf::Vector2i& curr, ShapeProperities* p)
 #ifdef _DEBUG
 	std::cout << "void Shapes::Line::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
-	_rectangle->setFillColor(p->fillColor);
+	_rectangle->setFillColor(p->primaryColor);
 	
 	const sf::Vector2f
 		VA = { static_cast<float>(curr.x - _originPixel.x), 0 },

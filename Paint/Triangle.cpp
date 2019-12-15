@@ -14,8 +14,8 @@ void Shapes::Triangle::update(const sf::Vector2i& curr, ShapeProperities* p)
 #ifdef _DEBUG
     std::cout << "void Shapes::Trapeze::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
-    _convex->setFillColor(p->fillColor);
-    _convex->setOutlineColor(p->outlineColor);
+    _convex->setFillColor(p->primaryColor);
+    _convex->setOutlineColor(p->secondaryColor);
     _convex->setOutlineThickness(p->outlineSize);
     *_texture = (*p->texture);
     _convex->setTexture(_texture);

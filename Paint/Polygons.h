@@ -16,6 +16,7 @@ namespace Shapes
         virtual sf::Vector2f getPoint(std::size_t) const override;
         virtual void update(const sf::Vector2i&, ShapeProperities*) override;
         virtual void draw(sf::RenderWindow*) const override;
+        virtual void* getDrawable() const override;
         
         sf::Vector2f* getRadius() const;
         void setRadius(const sf::Vector2f&);

@@ -4,6 +4,7 @@
 #include "Controller.h"
 #include "ShapesHeader.h"
 #include "AppSettings.h"
+#include <fstream>
 
 #ifdef _DEBUG
 #include <vld.h>
@@ -19,7 +20,7 @@ int main()
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	tgui::Gui* gui = new tgui::Gui{ *window };
 	
-	Controller* CTR = new Controller();
+	Controller* CTR = new Controller(window, gui);
 
 	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
 	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
@@ -27,7 +28,7 @@ int main()
 	setMenu(CTR, menu);
 
 	gui->add(menu);
-	CTR->refreshView(window, gui);
+	CTR->refreshView();
 
 	while (window->isOpen())
 	{
@@ -35,7 +36,7 @@ int main()
 		sf::Cursor cursor;
 		while (window->pollEvent(event))
 		{
-			if (gui->handleEvent(event) ==  1) CTR->refreshView(window, gui);
+			if (gui->handleEvent(event) ==  1) CTR->refreshView();
 			if (event.type) window->clear(sf::Color::Black);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
@@ -43,7 +44,7 @@ int main()
 				auto shape = CTR->getShapeController()->generate(CTR->getActiveCanvas(), sf::Mouse::getPosition(*window));
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					shape->update(sf::Mouse::getPosition(*window), CTR->getShapeProperites());
-					CTR->refreshView(window, gui);
+					CTR->refreshView();
 				}
 			}
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -53,7 +54,7 @@ int main()
 				auto shape = CTR->getShapeController()->generate(CTR->getActiveCanvas(), sf::Mouse::getPosition(*window));
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 					shape->update(sf::Mouse::getPosition(*window), CTR->getShapeProperites());
-					CTR->refreshView(window, gui);
+					CTR->refreshView();
 				}
 				CTR->reverseColors();
 			}
@@ -74,10 +75,14 @@ int main()
 void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 {
 	// --------------------------------------------FILE SECTION----------------------------------------------------------
-	menu->addMenuItem({ "File", "Load" });
-	menu->connectMenuItem({ "File", "Load" }, [&, CTR] { CTR->loadFromFile(); });
-	menu->addMenuItem({ "File", "Save" });
-	menu->connectMenuItem({ "File", "Save" }, [&, CTR] { CTR->saveToFile(); });
+	menu->addMenuItem({ "File", "Undo" });
+	menu->connectMenuItem({ "File", "Undo" }, [&, CTR] { CTR->removeLastShape(); });
+	menu->addMenuItem({ "File", "Save", ".jpg" });
+	menu->connectMenuItem({ "File", "Save", ".jpg" }, [&, CTR] { CTR->saveToFile(".jpg"); });
+	menu->addMenuItem({ "File", "Save", ".png" });
+	menu->connectMenuItem({ "File", "Save", ".png" }, [&, CTR] { CTR->saveToFile(".png"); });
+	menu->addMenuItem({ "File", "Save", ".bmp" });
+	menu->connectMenuItem({ "File", "Save", ".bmp" }, [&, CTR] { CTR->saveToFile(".bmp"); });
 
 	// --------------------------------------------GEOMETRIC SECTION-----------------------------------------------------
 	menu->addMenuItem({ "Geometric", "Shape", "Line" });
@@ -126,6 +131,8 @@ void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 	menu->connectMenuItem({ "Color", "Primary", "White" }, [&, CTR] { CTR->setFillColor(sf::Color::White); });
 	menu->addMenuItem({ "Color", "Primary", "Black" });
 	menu->connectMenuItem({ "Color", "Primary", "Black" }, [&, CTR] { CTR->setFillColor(sf::Color::Black); });
+	menu->addMenuItem({ "Color", "Primary", "Transparent" });
+	menu->connectMenuItem({ "Color", "Primary", "Transparent" }, [&, CTR] { CTR->setFillColor(sf::Color::Transparent); });
 
 	// --------------------------------------------COLOR SECONDARY SECTION------------------------------------------
 	menu->addMenuItem({ "Color", "Secondary", "Red" });

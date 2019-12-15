@@ -20,6 +20,7 @@ namespace Shapes
 
 		virtual void update(const sf::Vector2i&, ShapeProperities*) = 0;
 		virtual void draw(sf::RenderWindow*) const = 0;
+		virtual void* getDrawable() const = 0;
 	};
 }
 

@@ -29,14 +29,22 @@ void Shapes::Rectangle::draw(sf::RenderWindow* w) const
 	w->draw(*_rectangle);
 }
 
+void* Shapes::Rectangle::getDrawable() const
+{
+#ifdef _DEBUG
+	std::cout << "void* Shapes::Rectangle::getDrawable() const" << std::endl;
+#endif
+	return _rectangle;
+}
+
 void Shapes::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)
 {
 #ifdef _DEBUG
 	std::cout << "void Shapes::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
 	_rectangle->setSize(sf::Vector2f(static_cast<float>(curr.x - _originPixel.x - p->outlineSize), static_cast<float>(curr.y - _originPixel.y - p->outlineSize)));
-	_rectangle->setFillColor(p->fillColor);
-	_rectangle->setOutlineColor(p->outlineColor);
+	_rectangle->setFillColor(p->primaryColor);
+	_rectangle->setOutlineColor(p->secondaryColor);
 	_rectangle->setOutlineThickness(p->outlineSize);
 	*_texture = (*p->texture);
 	_rectangle->setTexture(_texture);

@@ -1,5 +1,6 @@
 #pragma once
 #include "Shape.h"
+#include "AppSettings.h"
 #include <TGUI/TGUI.hpp>
 
 #ifdef _DEBUG
@@ -14,5 +15,7 @@ public:
 	~Canvas();
 
 	Shapes::Shape* generateShape(Shapes::Shape*);
-	void refresh(sf::RenderWindow*, tgui::Gui*, sf::Color = sf::Color::Black);
+	void refresh(sf::RenderWindow*, tgui::Gui*);
+	std::string saveToImage(sf::RenderWindow*, const std::string&);
+	void removeLast();
 };

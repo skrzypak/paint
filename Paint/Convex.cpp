@@ -19,6 +19,14 @@ Shapes::Convex::~Convex()
     }
 }
 
+void* Shapes::Convex::getDrawable() const
+{
+#ifdef _DEBUG
+    std::cout << "void* Shapes::Convex::getDrawable() const" << std::endl;
+#endif
+    return _convex;
+}
+
 inline void Shapes::Convex::draw(sf::RenderWindow* w) const
 {
 #ifdef _DEBUG

@@ -26,9 +26,12 @@ class Controller
 	Controller::Shape* __activeShape;
 	ShapeProperities* __activeProperites;
 	Canvas* __canvas;
+	sf::RenderWindow* __window;
+	tgui::Gui* __gui;
 
 public:
-	Controller();
+	Controller() = delete;
+	Controller(sf::RenderWindow*, tgui::Gui*);
 	~Controller();
 	Controller::Shape* getShapeController();
 	ShapeProperities* getShapeProperites();
@@ -40,10 +43,11 @@ public:
 	void reverseColors();
 	void setTexture(std::string = "");
 	void clearTexture();
-	void refreshView(sf::RenderWindow*, tgui::Gui*, sf::Color = DEFAULT_CANVAS_COLOR);
+	void refreshView();
+	void refreshView(sf::RenderWindow*, tgui::Gui*);
 	void resetCanvas();
-	void saveToFile();
-	void loadFromFile();
+	void saveToFile(const std::string&);
+	void removeLastShape();
 };
 
 template<class SHAPE>

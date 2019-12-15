@@ -19,6 +19,14 @@ Shapes::Vertex::~Vertex()
     }
 }
 
+void* Shapes::Vertex::getDrawable() const
+{
+#ifdef _DEBUG
+    std::cout << "void* Shapes::Vertex::getDrawable() const" << std::endl;
+#endif
+    return _vecOfPixels;
+}
+
 void Shapes::Vertex::draw(sf::RenderWindow* w) const
 {
 #ifdef _DEBUG

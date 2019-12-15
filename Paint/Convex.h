@@ -13,5 +13,6 @@ namespace Shapes
 
         virtual void update(const sf::Vector2i&, ShapeProperities*) = 0;
         virtual void draw(sf::RenderWindow*) const override;
+        virtual void* getDrawable() const override;
     };
 }
