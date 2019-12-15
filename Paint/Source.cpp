@@ -32,12 +32,14 @@ int main()
 	while (window->isOpen())
 	{
 		sf::Event event;
+		sf::Cursor cursor;
 		while (window->pollEvent(event))
 		{
 			if (gui->handleEvent(event) ==  1) CTR->refreshView(window, gui);
 			if (event.type) window->clear(sf::Color::Black);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
+				if (cursor.loadFromSystem(sf::Cursor::Cross)) window->setMouseCursor(cursor);
 				auto shape = CTR->getShapeController()->generate(CTR->getActiveCanvas(), sf::Mouse::getPosition(*window));
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					shape->update(sf::Mouse::getPosition(*window), CTR->getShapeProperites());
@@ -46,6 +48,7 @@ int main()
 			}
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 			{
+				if (cursor.loadFromSystem(sf::Cursor::Cross)) window->setMouseCursor(cursor);
 				CTR->reverseColors();
 				auto shape = CTR->getShapeController()->generate(CTR->getActiveCanvas(), sf::Mouse::getPosition(*window));
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
@@ -55,16 +58,16 @@ int main()
 				CTR->reverseColors();
 			}
 			if (event.type == sf::Event::Closed) window->close();
+			if (cursor.loadFromSystem(sf::Cursor::Arrow)) window->setMouseCursor(cursor);
 		}
 	}
 
-	delete gui;
-	delete window;
 	delete CTR;
-	window = nullptr;
-	gui = nullptr;
 	CTR = nullptr;
-	
+	delete gui;
+	gui = nullptr;
+	delete window;
+	window = nullptr;
 	return EXIT_SUCCESS;
 }
 

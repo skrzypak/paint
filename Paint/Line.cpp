@@ -3,14 +3,14 @@
 Shapes::Line::Line(const sf::Vector2i& s): Shapes::Rectangle(s)
 {
 #ifdef _DEBUG
-	std::cout << "CApp::Line::Line(const sf::Vector2i& s): CApp::Rectangle(s)" << std::endl;
+	std::cout << "Shapes::Line::Line(const sf::Vector2i& s): CApp::Rectangle(s)" << std::endl;
 #endif
 }
 
 void Shapes::Line::update(const sf::Vector2i& curr, ShapeProperities* p)
 {
 #ifdef _DEBUG
-	std::cout << "void CApp::Line::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
+	std::cout << "void Shapes::Line::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
 	_rectangle->setFillColor(p->fillColor);
 	

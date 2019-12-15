@@ -3,7 +3,7 @@
 Shapes::Trapeze::Trapeze(const sf::Vector2i& s): Shapes::Convex()
 {
 #ifdef _DEBUG
-    std::cout << "CApp::Trapeze::Trapeze(const sf::Vector2i& s): Shapes::Convex()" << std::endl;
+    std::cout << "Shapes::Trapeze::Trapeze(const sf::Vector2i& s): Shapes::Convex()" << std::endl;
 #endif
     _originPixel = s;
     _convex->setPointCount(4);
@@ -12,7 +12,7 @@ Shapes::Trapeze::Trapeze(const sf::Vector2i& s): Shapes::Convex()
 void Shapes::Trapeze::update(const sf::Vector2i& curr, ShapeProperities* p)
 {
 #ifdef _DEBUG
-    std::cout << "void CApp::Trapeze::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
+    std::cout << "void Shapes::Trapeze::update(const sf::Vector2i& curr, ShapeProperities* p)" << std::endl;
 #endif
     _convex->setFillColor(p->fillColor);
     _convex->setOutlineColor(p->outlineColor);
