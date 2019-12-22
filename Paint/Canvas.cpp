@@ -24,10 +24,10 @@ Canvas::~Canvas()
 	}
 }
 
-Shapes::Shape* Canvas::generateShape(Shapes::Shape* s)
+Shapes::Shape* Canvas::putGenerateShape(Shapes::Shape* s)
 {
 #ifdef _DEBUG
-	std::cout << "Shape* Canvas::generateShape(Shape* s)" << std::endl;
+	std::cout << "Shape* Canvas::putGenerateShape(Shape* s)" << std::endl;
 #endif
 	__vecOfShapes.push_back(s);
 	return s;

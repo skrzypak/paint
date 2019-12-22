@@ -1,11 +1,21 @@
 #pragma once
 #include "AppSettings.h"
 
+/**Struktura zawierajaca parametry figury wybrane przez uzytownia z menu*/
 struct ShapeProperities
 {
+	/**Glowny kolor - najczesciej kolor wypelnienia figury*/
 	sf::Color primaryColor;
+
+	/**Drugorzedny kolor - najczesciej kolor obramowania figury*/
 	sf::Color secondaryColor;
+
+	/**Wskaznik na texture
+	* @param NULLPTR - textura nie zostal wybrana
+	*/
 	sf::Texture* texture;
+
+	/**Rozmiar obramowania figury geometrycznej*/
 	float outlineSize;
 
 	ShapeProperities() : primaryColor(DEFAULT_PRIMARY_COLOR), secondaryColor(DEFAULT_SECONDARY_COLOR), outlineSize(DEFAULT_OUTLINE_SIZE), texture(new sf::Texture)

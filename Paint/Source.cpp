@@ -16,16 +16,21 @@ int main()
 {
 	sf::Image icon;
 	if (!icon.loadFromFile("../assets/icon.png")) return EXIT_FAILURE;
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE, sf::Style::Titlebar | sf::Style::Close);
-	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-	tgui::Gui* gui = new tgui::Gui{ *window };
-	
-	Controller* CTR = new Controller(window, gui);
 
+	//sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE, sf::Style::Titlebar | sf::Style::Close);
+	std::unique_ptr<sf::RenderWindow> window (new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE, sf::Style::Titlebar | sf::Style::Close));
+	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
+	//tgui::Gui* gui = new tgui::Gui{ *window };
+	std::unique_ptr<tgui::Gui> gui = std::make_unique<tgui::Gui>(*window);
+	
+	//Controller* CTR = new Controller(window, gui);
+	std::unique_ptr<Controller> CTR (new Controller(window.get(), gui.get()));
+	
 	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
 	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
 	menu->setTextSize(13);
-	setMenu(CTR, menu);
+	setMenu(CTR.get(), menu);
 
 	gui->add(menu);
 	CTR->refreshView();
@@ -36,8 +41,8 @@ int main()
 		sf::Cursor cursor;
 		while (window->pollEvent(event))
 		{
-			auto mouseBtnLeftPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-			auto mouseBtnRightPressed = sf::Mouse::isButtonPressed(sf::Mouse::Right);
+			const auto mouseBtnLeftPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+			const auto mouseBtnRightPressed = sf::Mouse::isButtonPressed(sf::Mouse::Right);
 			if (gui->handleEvent(event) ==  1) CTR->refreshView();
 			if ((mouseBtnLeftPressed || mouseBtnRightPressed) && menu->isFocused() == false)
 			{
@@ -55,12 +60,14 @@ int main()
 		}
 	}
 
-	delete CTR;
-	CTR = nullptr;
-	delete gui;
-	gui = nullptr;
-	delete window;
-	window = nullptr;
+	
+	//delete CTR;
+	//CTR = nullptr;
+	//delete gui;
+	//gui = nullptr;
+	//delete window;
+	//window = nullptr;
+	
 	return EXIT_SUCCESS;
 }
 
