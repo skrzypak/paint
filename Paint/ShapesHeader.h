@@ -1,0 +1,10 @@
+#pragma once
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "Hexagon.h"
+#include "Triangle.h"
+#include "Trapeze.h"
+#include "Diamond.h"
+#include "Pentagon.h"
+#include "Pencil.h"
+#include "Line.h"
