@@ -136,5 +136,4 @@ void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 	menu->addMenuItem({ "Utility", "Clear" });
 	menu->connectMenuItem("Utility", "Clear", [&, CTR] { CTR->resetCanvas(); });
 
-	menu->setMenuItemEnabled({ "File", "Load" }, false);
 }

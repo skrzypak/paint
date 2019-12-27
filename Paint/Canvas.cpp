@@ -55,7 +55,6 @@ std::string Canvas::saveToImage(sf::RenderWindow* w, const std::string& path)
 	background.setSize({static_cast<float>(w->getSize().x), static_cast<float>(w->getSize().y)});
 
 	tmp.draw(background);
-	
 	for (const auto& s : __vecOfShapes) s->draw(&tmp);
 
 	const sf::Texture& texture = tmp.getTexture();
