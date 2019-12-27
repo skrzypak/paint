@@ -24,12 +24,12 @@ std::size_t Shapes::Polygons::getPointCount() const
     return __pointCount;
 }
 
-void* Shapes::Polygons::getDrawable() const
+void Shapes::Polygons::draw(sf::RenderTexture* t) const
 {
 #ifdef _DEBUG
-    std::cout << "void* Shapes::Polygons::getDrawable() const" << std::endl;
+    std::cout << "void Shapes::Polygons:draw(sf::RenderTexture* t) const" << std::endl;
 #endif
-    return const_cast<Polygons *>(this);
+    t->draw(*const_cast<Polygons*>(this));
 }
 
 void Shapes::Polygons::draw(sf::RenderWindow* w) const

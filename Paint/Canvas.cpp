@@ -56,8 +56,7 @@ std::string Canvas::saveToImage(sf::RenderWindow* w, const std::string& path)
 
 	tmp.draw(background);
 	
-	for (const auto& s : __vecOfShapes)
-		tmp.draw(*static_cast<sf::Drawable*>(s->getDrawable()));
+	for (const auto& s : __vecOfShapes) s->draw(&tmp);
 
 	const sf::Texture& texture = tmp.getTexture();
 	

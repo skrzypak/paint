@@ -35,10 +35,10 @@ namespace Shapes
 		*/
 		virtual void draw(sf::RenderWindow*) const = 0;
 		
-		/** Metoda wirtualna zwracajaca obiekt geometryczny niezaleznie od jego typu
-		* @warning nalezy pamietac aby pobrany obiekt zrzutowac na sf::Drowable* lub pochodne aby mozna bylo go dodac do sf::RenderWindow
+		/** Metoda wirtualna dodajaca obiekt geometryczny do obiektu sf::RenderTexture
+		* @param sf::RenderTexture* wskaznik na texture
 		*/
-		virtual void* getDrawable() const = 0;
+		virtual void draw(sf::RenderTexture*) const = 0;
 	};
 }
 

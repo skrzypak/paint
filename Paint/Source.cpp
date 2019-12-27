@@ -41,7 +41,7 @@ int main()
 			const auto mouseBtnLeftPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 			const auto mouseBtnRightPressed = sf::Mouse::isButtonPressed(sf::Mouse::Right);
 			if (gui->handleEvent(event) ==  1) CTR->refreshView();
-			if ((mouseBtnLeftPressed || mouseBtnRightPressed) && menu->isFocused() == false)
+			if ((mouseBtnLeftPressed || mouseBtnRightPressed) && menu->isFocused() == false && menu->isEnabled())
 			{
 				if(mouseBtnRightPressed) CTR->reverseColors();
 				if (cursor.loadFromSystem(sf::Cursor::Cross)) window->setMouseCursor(cursor);

@@ -19,12 +19,12 @@ Shapes::Convex::~Convex()
     }
 }
 
-void* Shapes::Convex::getDrawable() const
+void Shapes::Convex::draw(sf::RenderTexture* t) const
 {
 #ifdef _DEBUG
-    std::cout << "void* Shapes::Convex::getDrawable() const" << std::endl;
+    std::cout << "void Shapes::Convex::draw(sf::RenderTexture* t) const" << std::endl;
 #endif
-    return _convex;
+    t->draw(*_convex);
 }
 
 inline void Shapes::Convex::draw(sf::RenderWindow* w) const
