@@ -19,12 +19,12 @@ Shapes::Vertex::~Vertex()
     }
 }
 
-void* Shapes::Vertex::getDrawable() const
+void Shapes::Vertex::draw(sf::RenderTexture* t) const
 {
 #ifdef _DEBUG
-    std::cout << "void* Shapes::Vertex::getDrawable() const" << std::endl;
+    std::cout << "void Shapes::Vertex::draw(sf::RenderTexture* t) const" << std::endl;
 #endif
-    return _vecOfPixels;
+    t->draw(*_vecOfPixels);
 }
 
 void Shapes::Vertex::draw(sf::RenderWindow* w) const

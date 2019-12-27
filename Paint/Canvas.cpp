@@ -1,6 +1,5 @@
 #include "Canvas.h"
 #include <windows.h>
-#include <shlobj.h>
 
 Canvas::Canvas()
 {
@@ -44,17 +43,11 @@ void Canvas::refresh(sf::RenderWindow* w, tgui::Gui* g)
 	w->display();
 }
 
-std::string Canvas::saveToImage(sf::RenderWindow* w, const std::string& ext)
+std::string Canvas::saveToImage(sf::RenderWindow* w, const std::string& path)
 {
 #ifdef _DEBUG
-	std::cout << "std::string Canvas::saveToFile(sf::RenderWindow* w, const std::string& ext)" << std::endl;
+	std::cout << "std::string Canvas::saveToFile(sf::RenderWindow* w, const std::string& path, const std::string& ext)" << std::endl;
 #endif
-
-	CHAR userPicturePath[MAX_PATH];
-	SHGetFolderPath(NULL, CSIDL_MYPICTURES, NULL, SHGFP_TYPE_CURRENT, userPicturePath);
-
-	std::string path = static_cast<std::string>(userPicturePath) + "\\SFML-APP" + ext;
-
 	sf::RenderTexture tmp;
 	tmp.create(w->getSize().x, w->getSize().y);
 	sf::RectangleShape background;
@@ -62,14 +55,12 @@ std::string Canvas::saveToImage(sf::RenderWindow* w, const std::string& ext)
 	background.setSize({static_cast<float>(w->getSize().x), static_cast<float>(w->getSize().y)});
 
 	tmp.draw(background);
-	
-	for (const auto& s : __vecOfShapes)
-		tmp.draw(*static_cast<sf::Drawable*>(s->getDrawable()));
+	for (const auto& s : __vecOfShapes) s->draw(&tmp);
 
 	const sf::Texture& texture = tmp.getTexture();
 	
-
 	sf::Image img = texture.copyToImage();
+	img.flipVertically();
 	img.saveToFile(path);
 	
 	return path;

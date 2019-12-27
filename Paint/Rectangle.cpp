@@ -29,12 +29,12 @@ void Shapes::Rectangle::draw(sf::RenderWindow* w) const
 	w->draw(*_rectangle);
 }
 
-void* Shapes::Rectangle::getDrawable() const
+void Shapes::Rectangle::draw(sf::RenderTexture* t) const
 {
 #ifdef _DEBUG
-	std::cout << "void* Shapes::Rectangle::getDrawable() const" << std::endl;
+	std::cout << "void Shapes::Rectangle::draw(sf::RenderTexture* t) const" << std::endl;
 #endif
-	return _rectangle;
+	t->draw(*_rectangle);
 }
 
 void Shapes::Rectangle::update(const sf::Vector2i& curr, ShapeProperities* p)

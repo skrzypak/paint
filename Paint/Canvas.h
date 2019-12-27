@@ -32,7 +32,7 @@ public:
 
 	/** Metoda ktora zapisuje ksztalty do pliku o rozszerzeniu .png, .jpg lub .bmp
 	* @param sf::RenderWindow* wskaznik na obiekt sf::RenderWindow
-	* @param const std::string& nazwa rozszerzenia pliku: ".png", ".jpg" lub ".bmp"
+	* @param std::string sciezka gdzie ma zostac zapisany plik
 	* @return sciezke gdzie zostal zapisany plik
 	* @warning jesli rozszerzenie jest inne niz .png, .jpg lub .bmp plik nie zostanie utworzony
 	*/
