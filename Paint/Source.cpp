@@ -17,22 +17,19 @@ int main()
 	sf::Image icon;
 	if (!icon.loadFromFile("../assets/icon.png")) return EXIT_FAILURE;
 
-	//sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE, sf::Style::Titlebar | sf::Style::Close);
 	std::unique_ptr<sf::RenderWindow> window (new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE, sf::Style::Titlebar | sf::Style::Close));
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-	//tgui::Gui* gui = new tgui::Gui{ *window };
 	std::unique_ptr<tgui::Gui> gui = std::make_unique<tgui::Gui>(*window);
-	
-	//Controller* CTR = new Controller(window, gui);
 	std::unique_ptr<Controller> CTR (new Controller(window.get(), gui.get()));
 	
+	auto menuHeight = 25.f;
 	tgui::MenuBar::Ptr menu = tgui::MenuBar::create();
-	menu->setSize(static_cast<float>((*window).getSize().x), 25.f);
+	menu->setSize(static_cast<float>((*window).getSize().x), menuHeight);
 	menu->setTextSize(13);
 	setMenu(CTR.get(), menu);
 
-	gui->add(menu);
+	gui->add(menu, "MainMenu");
 	CTR->refreshView();
 
 	while (window->isOpen())
@@ -50,6 +47,7 @@ int main()
 				if (cursor.loadFromSystem(sf::Cursor::Cross)) window->setMouseCursor(cursor);
 				auto shape = CTR->getShapeController()->generate(CTR->getActiveCanvas(), sf::Mouse::getPosition(*window));
 				while (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+					if (sf::Mouse::getPosition().y < menuHeight + 1) continue;
 					shape->update(sf::Mouse::getPosition(*window), CTR->getShapeProperites());
 					CTR->refreshView();
 				}
@@ -59,15 +57,6 @@ int main()
 			if (cursor.loadFromSystem(sf::Cursor::Arrow)) window->setMouseCursor(cursor);
 		}
 	}
-
-	
-	//delete CTR;
-	//CTR = nullptr;
-	//delete gui;
-	//gui = nullptr;
-	//delete window;
-	//window = nullptr;
-	
 	return EXIT_SUCCESS;
 }
 
@@ -76,12 +65,8 @@ void setMenu(Controller* CTR, tgui::MenuBar::Ptr menu)
 	// --------------------------------------------FILE SECTION----------------------------------------------------------
 	menu->addMenuItem({ "File", "Undo" });
 	menu->connectMenuItem({ "File", "Undo" }, [&, CTR] { CTR->removeLastShape(); });
-	menu->addMenuItem({ "File", "Save", ".jpg" });
-	menu->connectMenuItem({ "File", "Save", ".jpg" }, [&, CTR] { CTR->saveToFile(".jpg"); });
-	menu->addMenuItem({ "File", "Save", ".png" });
-	menu->connectMenuItem({ "File", "Save", ".png" }, [&, CTR] { CTR->saveToFile(".png"); });
-	menu->addMenuItem({ "File", "Save", ".bmp" });
-	menu->connectMenuItem({ "File", "Save", ".bmp" }, [&, CTR] { CTR->saveToFile(".bmp"); });
+	menu->addMenuItem({ "File", "Save as" });
+	menu->connectMenuItem({ "File", "Save as",}, [&, CTR] { CTR->saveToFile(); });
 
 	// --------------------------------------------GEOMETRIC SECTION-----------------------------------------------------
 	menu->addMenuItem({ "Geometric", "Shape", "Line" });

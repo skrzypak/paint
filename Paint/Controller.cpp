@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include <shlobj.h>
 
 Controller::Controller(sf::RenderWindow* w, tgui::Gui* g): __activeShape(new Controller::Type<DEFAULT_MODE>), __activeProperites(new ShapeProperities), __canvas(new Canvas)
 {
@@ -125,12 +126,70 @@ void Controller::resetCanvas()
 	__canvas = new Canvas;
 }
 
-void Controller::saveToFile(const std::string& e)
+void Controller::saveToFile()
 {
 #ifdef _DEBUG
-	std::cout << "void Controller::saveToFile(const std::string& e)" << std::endl;
+	std::cout << "void Controller::saveToFile()" << std::endl;
 #endif
-	__canvas->saveToImage(__window, e);
+
+	CHAR userPicturePath[MAX_PATH];
+	SHGetFolderPath(NULL, CSIDL_MYPICTURES, NULL, SHGFP_TYPE_CURRENT, userPicturePath);
+	std::string path = static_cast<std::string>(userPicturePath) + "\\file_name";
+
+	unsigned btnWidth = 60, btnNum = 3, btnMargin = 10;
+
+	auto input = tgui::EditBox::create();
+	input->setPosition({ 10, 45 });
+	input->setSize({ __window->getSize().x - btnWidth * btnNum - btnMargin * btnNum, 25 });
+	input->setText(path);
+
+	auto comboExt = tgui::ComboBox::create();
+	comboExt->setSize(btnWidth, 25);
+	comboExt->setPosition(__window->getSize().x - btnWidth * btnNum - btnMargin * btnNum, 45);
+	comboExt->addItem(".jpg");
+	comboExt->addItem(".png");
+	comboExt->addItem(".bmp");
+	comboExt->setSelectedItem(".jpg");
+	btnNum--;
+
+	auto btnSave = tgui::Button::create();
+	btnSave->setPosition(__window->getSize().x - btnWidth * btnNum - btnMargin * btnNum, 45);
+	btnSave->setText("Save");
+	btnSave->setSize(btnWidth, 25);
+	btnNum--;
+	
+	auto btnCancel = tgui::Button::create();
+	btnCancel->setPosition(__window->getSize().x - btnWidth * btnNum - btnMargin * btnNum, 45);
+	btnCancel->setText("Cancel");
+	btnCancel->setSize(btnWidth, 25);
+
+	__gui->get("MainMenu")->setEnabled(false);
+
+	auto restoreView = [=]() {
+		__gui->remove(__gui->get("Controller::saveToFile()::input"));
+		__gui->remove(__gui->get("Controller::saveToFile()::comboExt"));
+		__gui->remove(__gui->get("Controller::saveToFile()::btnSave"));
+		__gui->remove(__gui->get("Controller::saveToFile()::btnCancel"));
+		__gui->get("MainMenu")->setEnabled(true);
+	};
+
+	btnSave->connect("pressed", [=]() {
+		auto path = input->getText() + comboExt->getSelectedItem();
+		try {
+			__canvas->saveToImage(__window, path);
+			restoreView();
+		}
+		catch (const std::exception&) {
+			restoreView();
+		}
+	});
+
+	btnCancel->connect("pressed", restoreView);
+	
+	__gui->add(input, "Controller::saveToFile()::input");
+	__gui->add(comboExt, "Controller::saveToFile()::comboExt");
+	__gui->add(btnSave, "Controller::saveToFile()::btnSave");
+	__gui->add(btnCancel, "Controller::saveToFile()::btnCancel");
 }
 
 void Controller::removeLastShape()

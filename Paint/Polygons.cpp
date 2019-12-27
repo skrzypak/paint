@@ -32,6 +32,14 @@ void* Shapes::Polygons::getDrawable() const
     return const_cast<Polygons *>(this);
 }
 
+void Shapes::Polygons::draw(sf::RenderWindow* w) const
+{
+#ifdef _DEBUG
+    std::cout << "void Shapes::Polygons::draw(sf::RenderWindow* w) const" << std::endl;
+#endif
+    w->draw(*const_cast<Polygons*>(this));
+}
+
 sf::Vector2f Shapes::Polygons::getPoint(std::size_t index) const
 {
 #ifdef _DEBUG
@@ -42,14 +50,6 @@ sf::Vector2f Shapes::Polygons::getPoint(std::size_t index) const
         x = std::cos(a) * (*__radius).x,
         y = std::sin(a) * (*__radius).y;
     return sf::Vector2f((*__radius).x + x, (*__radius).y + y);
-}
-
-void Shapes::Polygons::draw(sf::RenderWindow* w) const
-{
-#ifdef _DEBUG
-    std::cout << "void Shapes::Polygons::draw(sf::RenderWindow* w) const" << std::endl;
-#endif
-    w->draw(*const_cast<Polygons*>(this));
 }
 
 sf::Vector2f* Shapes::Polygons::getRadius() const

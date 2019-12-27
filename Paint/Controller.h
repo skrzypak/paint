@@ -108,7 +108,7 @@ public:
 	void resetCanvas();
 	
 	/**Metoda ktora sluzy do wykonia opcji 'Save' z menu*/
-	void saveToFile(const std::string&);
+	void saveToFile();
 
 	/**Metoda ktora sluzy do wykonania opcji 'Undo' z menu*/
 	void removeLastShape();
