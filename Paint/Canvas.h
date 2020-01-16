@@ -14,8 +14,13 @@ class Canvas
 	std::vector<Shapes::Shape*> __vecOfShapes;
 public:
 
-	/**Konstruktor klasy Canvas*/
+	/**Konstruktor bezparametryowy*/
 	Canvas();
+	/**Konstruktor kopiujacy*/
+	Canvas(const Canvas&) = default;
+	/**Konstruktor przenoszacy*/
+	Canvas(Canvas &&) = default;
+	/**Destruktor*/
 	~Canvas();
 
 	/** Metoda ktora dodaje wskaznik na wygenerowany obiekt geometryczny do wektora __vecOfShapes 
@@ -23,6 +28,12 @@ public:
 	* @return Shapes::Shpae* zwraca wskaznik na wygenerowany obiekt geometryczny
 	*/
 	Shapes::Shape* putGenerateShape(Shapes::Shape*);
+
+	/** Przeciazony operator += dodajacy wskaznik z wygenerowanego obiektu geometrycznego
+	* do wektora __vecOfShapes klasy Canvas
+	* @param r-value Shapes::Shape* wskaznik na wygenerowany obiekt geometryczny
+	*/
+	Canvas& operator+=(Shapes::Shape* s);
 
 	/** Metoda ktora odswieza zawartosc ekranu aplikacji
 	* @param sf::RenderWindow* wskaznik na obiekt sf::RenderWindow
@@ -42,4 +53,14 @@ public:
 	* @warning nie odswiaza ekranu
 	*/
 	void removeLast();
+
+	/** Przeciazony operator (postfix) -- do usuwa ostaniego dodanego obiekt graficzny do canvasu
+	* @warning nie odswiaza ekranu
+	*/
+	void operator--(int);
+
+	/** Przeciazony operator (prefix) -- do usuwa ostaniego dodanego obiekt graficzny do canvasu
+	* @warning nie odswiaza ekranu
+	*/
+	Canvas& operator--();
 };

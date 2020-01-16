@@ -197,5 +197,7 @@ void Controller::removeLastShape()
 #ifdef _DEBUG
 	std::cout << "void Controller::removeLastShape()" << std::endl;
 #endif
-	__canvas->removeLast();
+	//__canvas->removeLast();
+	//(*__canvas)--;
+	--(*__canvas);
 }

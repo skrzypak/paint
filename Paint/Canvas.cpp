@@ -32,6 +32,15 @@ Shapes::Shape* Canvas::putGenerateShape(Shapes::Shape* s)
 	return s;
 }
 
+Canvas& Canvas::operator+=(Shapes::Shape* s)
+{
+#ifdef _DEBUG
+	std::cout << "Canvas& Canvas::operator+=(const Shapes::Shape * s)" << std::endl;
+#endif
+	this->__vecOfShapes.push_back(s);
+	return *this;
+}
+
 void Canvas::refresh(sf::RenderWindow* w, tgui::Gui* g)
 {
 #ifdef _DEBUG
@@ -78,4 +87,21 @@ void Canvas::removeLast()
 		el = nullptr;
 		__vecOfShapes.pop_back();
 	}
+}
+
+void Canvas::operator-- (int)
+{
+#ifdef _DEBUG
+	std::cout << "void Canvas::operator-- (int)" << std::endl;
+#endif
+	Canvas::removeLast();
+}
+
+Canvas& Canvas::operator-- ()
+{
+#ifdef _DEBUG
+	std::cout << "Canvas& Canvas::operator-- ()" << std::endl;
+#endif
+	Canvas::removeLast();
+	return *this;
 }

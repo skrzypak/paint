@@ -15,7 +15,12 @@ void setMenu(Controller*, tgui::MenuBar::Ptr);
 int main()
 {
 	sf::Image icon;
+
+#ifdef _DEBUG
 	if (!icon.loadFromFile("../assets/icon.png")) return EXIT_FAILURE;
+#else
+	if (!icon.loadFromFile("assets/icon.png")) return EXIT_FAILURE;
+#endif
 
 	std::unique_ptr<sf::RenderWindow> window (new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE, sf::Style::Titlebar | sf::Style::Close));
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());

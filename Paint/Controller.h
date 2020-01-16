@@ -130,5 +130,8 @@ inline Shapes::Shape* Controller::Type<SHAPE>::generate(Canvas* c, const sf::Vec
 #ifdef _DEBUG
 	std::cout << "template<class SHAPE> inline Shapes::Shape * Controller::Type<SHAPE>::generate(Canvas * c, const sf::Vector2i & v) const" << std::endl;
 #endif
+	//Shapes::Shape * shape = new SHAPE(v);
+	//(*c) += shape;
+	//return shape;
 	return c->putGenerateShape(new SHAPE(v));
 };
